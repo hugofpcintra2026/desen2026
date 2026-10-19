@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -on \"&#[0-9]\\\\{1,\\\\};\\\\|&#x[0-9a-fA-F]\\\\{1,\\\\};\\\\|&quot;\\\\|&amp;\\\\|&lt;\\\\|&gt;\\\\|&apos;\\\\|&nbsp;\" /Users/bielwqi/www.desenrola-br.online/chat/index.html)",
+      "Bash(sort -t: -k2)",
+      "Bash(uniq -c -f1)",
+      "Bash(node -e ' *)",
+      "Bash(grep -rohn \"https://www\\\\.desenrola-br\\\\.online/[^\\\\\"'\\\\`\\) ]*\" --include=\"*.html\" --include=\"*.js\" --include=\"*.css\" .)",
+      "Bash(grep -roh \"https://www\\\\.desenrola-br\\\\.online/[^\\\\\"'\\\\` \\)>]*\" --include=\"*.html\" --include=\"*.js\" --include=\"*.css\" .)",
+      "Bash(grep -v '^$')",
+      "Bash(grep -rohE \"https?://[^\\\\\"'\\\\`\\) >]+\" --include=\"*.html\" --include=\"*.js\" --include=\"*.css\" .)",
+      "Bash(perl -i -pe \"s{https://www\\\\.desenrola-br\\\\.online/'}{'}g\" chat/index.html)",
+      "Bash(perl -i -pe 's{https://www\\\\.desenrola-br\\\\.online/}{../}g' chat/index.html)",
+      "Bash(perl -i -pe 's{https://www\\\\.desenrola-br\\\\.online/}{../}g' obrigado/index.html pagamento/index.html)",
+      "Bash(python3 -)",
+      "Bash(cd *)"
+    ]
+  }
+}

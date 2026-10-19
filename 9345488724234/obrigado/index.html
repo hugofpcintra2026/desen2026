@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="icon" type="image/png" sizes="96x96" href="../icons8-brasil-windows-11-color-96.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons8-brasil-windows-11-color-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../icons8-brasil-windows-11-color-16.png">
+  <title>Pagamento Confirmado — Desenrola Brasil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Google Ads conversion tag — configurado em produção pelo user -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18165170964"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-18165170964');
+    // Conversion event will be sent with the real transaction_id (acordo)
+  </script>
+</head>
+<body>
+  <div class="header">
+    <img src="../assets/img/iconegov.png" alt="gov.br">
+  </div>
+
+  <div class="container">
+    <div class="success-icon">✅</div>
+    <div class="title">Pagamento confirmado!</div>
+    <div class="subtitle">
+      Parabéns, <strong id="acordo-nome">Cliente</strong>!<br>
+      Seu pagamento foi recebido com sucesso.
+    </div>
+
+    <div class="card">
+      <div class="card-title">Detalhes do acordo</div>
+      <div class="info-row">
+        <span class="info-label">Nome</span>
+        <span class="info-value" id="linha-nome">Cliente</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">CPF</span>
+        <span class="info-value" id="linha-cpf">—</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Valor pago</span>
+        <span class="info-value azul" id="linha-valor">—</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Desconto aplicado</span>
+        <span class="info-value verde">99%</span>
+      </div>
+    </div>
+
+    <div class="prazo-box">
+      <strong>⏳ Prazo de regularização</strong>
+      Seu nome será limpo em até <strong>72 horas úteis</strong> após a confirmação do pagamento.<br>
+      Guarde o código do acordo: <strong id="acordo-codigo">—</strong>
+    </div>
+
+    <div class="footer-brand">
+      <div class="gv">gov.br</div>
+      <div class="gv-sub">Todo o conteúdo deste site está publicado sob a licença</div>
+      <div class="gv-copy">Sistema de Renegociação — Todos os direitos reservados</div>
+    </div>
+  </div>
+
+  <script src="../assets/js/tracking.js"></script>
+  <script>
+    (function () {
+      /**
+       * Lê params da URL (?nome=&cpf=&valor=&acordo=) e preenche a página.
+       * Depois envia gtag conversion com transaction_id = acordo.
+       */
+      function formatCPF(cpf) {
+        var d = String(cpf || '').replace(/\D/g, '').slice(0, 11);
+        if (d.length <= 3) return d;
+        if (d.length <= 6) return d.slice(0, 3) + '.' + d.slice(3);
+        if (d.length <= 9) return d.slice(0, 3) + '.' + d.slice(3, 6) + '.' + d.slice(6);
+        return d.slice(0, 3) + '.' + d.slice(3, 6) + '.' + d.slice(6, 9) + '-' + d.slice(9);
+      }
+
+      var p = new URLSearchParams(window.location.search);
+      var nome   = p.get('nome')   || 'Cliente';
+      var cpf    = p.get('cpf')    || '';
+      var valor  = p.get('valor')  || '—';
+      var acordo = p.get('acordo') || '';
+
+      document.getElementById('acordo-nome').textContent = nome.split(' ')[0] || nome;
+      document.getElementById('linha-nome').textContent  = nome;
+      document.getElementById('linha-cpf').textContent   = formatCPF(cpf) || '—';
+      document.getElementById('linha-valor').textContent = valor;
+      document.getElementById('acordo-codigo').textContent = acordo || '—';
+
+      // gtag conversion com transaction_id real (= acordo)
+      try {
+        if (typeof gtag === 'function' && acordo) {
+          gtag('event', 'conversion', {
+            send_to: 'AW-18165170964/HeCcCN_q9cocEJSG6tVD',
+            value: 1.0,
+            currency: 'BRL',
+            transaction_id: acordo
+          });
+        }
+      } catch (_) {}
+    })();
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; }
+    body { font-family: 'Inter', sans-serif; background: #f0f2f5; }
+    .header { background: #fff; border-bottom: 3px solid #1351B4; box-shadow: 0 2px 8px rgba(0,0,0,.08); height: 58px; display: flex; align-items: center; padding: 0 16px; }
+    .header img { height: 34px; }
+    .container { max-width: 480px; margin: 0 auto; padding: 32px 16px 48px; text-align: center; }
+    .success-icon { width: 88px; height: 88px; background: #D1FAE5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 44px; animation: popIn .5s cubic-bezier(.34,1.56,.64,1) both; }
+    @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .title { font-size: 24px; font-weight: 800; color: #059669; margin-bottom: 8px; }
+    .subtitle { font-size: 15px; color: #555; line-height: 1.6; margin-bottom: 28px; }
+    .card { background: #fff; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,.08); padding: 22px 20px; margin-bottom: 20px; text-align: left; }
+    .card-title { font-size: 12px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 14px; }
+    .info-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; font-size: 14px; }
+    .info-row + .info-row { border-top: 1px solid #f0f0f0; }
+    .info-label { color: #666; }
+    .info-value { font-weight: 600; color: #1a1a1a; text-align: right; }
+    .info-value.verde { color: #059669; }
+    .info-value.azul  { color: #1351B4; }
+    .prazo-box { background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 10px; padding: 14px 16px; font-size: 13px; color: #1e40af; line-height: 1.6; margin-bottom: 20px; }
+    .prazo-box strong { display: block; font-size: 14px; margin-bottom: 4px; }
+    .footer-brand { background: #071D41; border-radius: 10px; padding: 18px; margin-top: 8px; text-align: left; }
+    .footer-brand .gv      { color: #fff; font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+    .footer-brand .gv-sub  { color: #E08D1E; font-size: 11px; margin-bottom: 2px; }
+    .footer-brand .gv-copy { color: #fff; font-size: 11px; font-weight: 700; }
+  </style>
+</body>
+</html>

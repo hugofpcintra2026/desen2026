@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecionando...</title>
+  <script>
+    (function () {
+      var path = window.location.pathname;
+      var search = window.location.search;
+      var hash = window.location.hash;
+      var slug = '/9345488724234';
+
+      // Se já estiver dentro da slug e deu 404, vai para o index da slug
+      if (path.indexOf(slug) === 0) {
+        window.location.replace(slug + '/' + search + hash);
+        return;
+      }
+
+      // Se for rota conhecida do funil (cpf, chat, pagamento, upsell, obrigado), joga para a slug
+      var cleanPath = path.startsWith('/') ? path : '/' + path;
+      window.location.replace(slug + cleanPath + search + hash);
+    })();
+  </script>
+</head>
+<body>
+  <p style="font-family: sans-serif; text-align: center; margin-top: 50px; color: #475569;">
+    Carregando... Por favor, aguarde.
+  </p>
+</body>
+</html>
