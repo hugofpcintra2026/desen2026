@@ -9,15 +9,6 @@
   <title>Pagamento Confirmado — Desenrola Brasil</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Google Ads conversion tag — configurado em produção pelo user -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18165170964"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'AW-18165170964');
-    // Conversion event will be sent with the real transaction_id (acordo)
-  </script>
 </head>
 <body>
   <div class="header">
@@ -70,7 +61,6 @@
     (function () {
       /**
        * Lê params da URL (?nome=&cpf=&valor=&acordo=) e preenche a página.
-       * Depois envia gtag conversion com transaction_id = acordo.
        */
       function formatCPF(cpf) {
         var d = String(cpf || '').replace(/\D/g, '').slice(0, 11);
@@ -91,18 +81,6 @@
       document.getElementById('linha-cpf').textContent   = formatCPF(cpf) || '—';
       document.getElementById('linha-valor').textContent = valor;
       document.getElementById('acordo-codigo').textContent = acordo || '—';
-
-      // gtag conversion com transaction_id real (= acordo)
-      try {
-        if (typeof gtag === 'function' && acordo) {
-          gtag('event', 'conversion', {
-            send_to: 'AW-18165170964/HeCcCN_q9cocEJSG6tVD',
-            value: 1.0,
-            currency: 'BRL',
-            transaction_id: acordo
-          });
-        }
-      } catch (_) {}
     })();
   </script>
 
