@@ -1,56 +1,600 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Acesso Seguro • Redirecionando...</title>
-  <script>
-    (function () {
-      var slug = '/9345488724234';
-      var target = slug + '/' + window.location.search + window.location.hash;
-      window.location.replace(target);
-    })();
-  </script>
-  <noscript>
-    <meta http-equiv="refresh" content="0; url=/9345488724234/">
-  </noscript>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verificação de Segurança • Acesso Seguro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="assets/js/tracking.js"></script>
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     body {
-      background-color: #0f172a;
-      color: #94a3b8;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+      color: #0f172a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      -webkit-font-smoothing: antialiased;
+    }
+    .top-header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 14px 20px;
+    }
+    .header-inner {
+      max-width: 540px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+    }
+    .brand-logo .shield-icon {
+      width: 22px;
+      height: 22px;
+      color: #38bdf8;
+    }
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      background-color: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse 1.8s infinite;
+    }
+    .main-wrap {
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      margin: 0;
+      padding: 24px 16px;
+    }
+    .card-security {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      width: 100%;
+      max-width: 440px;
+      padding: 32px 24px;
+      text-align: center;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .icon-hero {
+      width: 58px;
+      height: 58px;
+      background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+      color: #0284c7;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 16px rgba(2, 132, 199, 0.12);
+    }
+    .icon-hero svg {
+      width: 30px;
+      height: 30px;
+    }
+    .card-title {
+      font-size: 21px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .card-subtitle {
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.5;
+      margin-bottom: 22px;
+    }
+    .math-card {
+      background: #f8fafc;
+      border: 1.5px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 18px 14px;
+      margin-bottom: 20px;
+    }
+    .math-tag {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #64748b;
+      margin-bottom: 6px;
+    }
+    .math-display {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0284c7;
+      letter-spacing: 1px;
+      user-select: none;
+    }
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .btn-calc {
+      background: #ffffff;
+      color: #0f172a;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 15px 10px;
+      font-size: 20px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-calc:hover {
+      border-color: #0284c7;
+      background: #f0f9ff;
+      color: #0369a1;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+    }
+    .btn-calc:active {
+      transform: translateY(0);
+    }
+    .btn-calc.correct {
+      background: #10b981 !important;
+      border-color: #059669 !important;
+      color: #ffffff !important;
+      animation: pulseGreen 0.35s ease;
+    }
+    .btn-calc.wrong {
+      background: #ef4444 !important;
+      border-color: #dc2626 !important;
+      color: #ffffff !important;
+      animation: shake 0.4s ease;
+    }
+    .btn-calc:disabled {
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+    .btn-calc.correct:disabled {
+      opacity: 1;
+    }
+    .feedback-box {
+      min-height: 24px;
+      font-size: 13.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .feedback-box.error {
+      color: #dc2626;
+    }
+
+    /* FILA DE ATENDIMENTO (10 SEGUNDOS) */
+    .queue-panel {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    .queue-verified-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+    .queue-verified-badge svg {
+      width: 15px;
+      height: 15px;
+    }
+    .queue-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 22px 16px;
+      margin: 18px 0;
       text-align: center;
     }
-    .spinner {
-      width: 38px;
-      height: 38px;
-      border: 3px solid rgba(255, 255, 255, 0.1);
-      border-top-color: #38bdf8;
+    .queue-countdown-num {
+      font-size: 48px;
+      font-weight: 800;
+      color: #0284c7;
+      line-height: 1;
+      margin: 8px 0 4px;
+      font-feature-settings: "tnum";
+      font-variant-numeric: tabular-nums;
+    }
+    .queue-countdown-lbl {
+      font-size: 12.5px;
+      color: #64748b;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .progress-track {
+      width: 100%;
+      height: 9px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      margin: 16px 0 14px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #0284c7 0%, #10b981 100%);
+      border-radius: 999px;
+      transition: width 1s linear;
+    }
+    .queue-status-line {
+      font-size: 13.5px;
+      color: #334155;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 22px;
+    }
+    .spinner-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #10b981;
       border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 16px;
+      display: inline-block;
+      animation: pulse 1.2s infinite;
     }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+    .queue-note {
+      background: #f1f5f9;
+      border-left: 3px solid #0284c7;
+      padding: 10px 12px;
+      border-radius: 6px;
+      text-align: left;
+      font-size: 12.5px;
+      color: #475569;
+      line-height: 1.45;
+      margin-top: 14px;
     }
-    a {
-      color: #38bdf8;
-      text-decoration: none;
+
+    .card-footer-info {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .card-footer-info svg {
+      width: 14px;
+      height: 14px;
+      color: #10b981;
+    }
+    .site-footer {
+      text-align: center;
+      padding: 16px 20px 24px;
+      font-size: 12px;
+      color: #64748b;
+      line-height: 1.5;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    @keyframes pulseGreen {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <div>
-    <div class="spinner"></div>
-    <p>Redirecionando para o ambiente seguro...</p>
-    <p style="font-size: 13px; margin-top: 10px;">
-      Se não for redirecionado automaticamente, <a href="/9345488724234/">clique aqui</a>.
-    </p>
-  </div>
+  <!-- Header Corporativo -->
+  <header class="top-header">
+    <div class="header-inner">
+      <div class="brand-logo">
+        <svg class="shield-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span>Portal de Atendimento</span>
+      </div>
+      <div class="status-badge">
+        <span class="pulse-dot"></span>
+        <span>Conexão Segura</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="main-wrap">
+    <div class="card-security">
+
+      <!-- ETAPA 1: VERIFICAÇÃO DE SOMA -->
+      <div id="stepVerification">
+        <div class="icon-hero">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+
+        <h1 class="card-title">Verificação de Segurança</h1>
+        <p class="card-subtitle">
+          Confirme que você é humano resolvendo a soma matemática abaixo para liberar seu atendimento:
+        </p>
+
+        <div class="math-card">
+          <div class="math-tag">Desafio Rápido</div>
+          <div class="math-display" id="equationText">...</div>
+        </div>
+
+        <div class="options-grid" id="optionsGrid">
+          <!-- Alternativas injetadas pelo script -->
+        </div>
+
+        <div class="feedback-box" id="feedbackMsg"></div>
+      </div>
+
+      <!-- ETAPA 2: VOCÊ ESTÁ NA FILA (10 SEGUNDOS) -->
+      <div id="stepQueue" class="queue-panel">
+        <div class="queue-verified-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Identidade Validada com Sucesso</span>
+        </div>
+
+        <h2 class="card-title">Você está na fila de atendimento</h2>
+        <p class="card-subtitle">
+          Aguarde enquanto conectamos você aos servidores do canal de atendimento seguro.
+        </p>
+
+        <div class="queue-box">
+          <div class="queue-countdown-lbl">Liberando seu acesso em</div>
+          <div class="queue-countdown-num" id="queueTimer">10</div>
+          <div class="queue-countdown-lbl">segundos</div>
+
+          <div class="progress-track">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+
+          <div class="queue-status-line">
+            <span class="spinner-dot"></span>
+            <span id="queueStatus">Conectando ao canal seguro...</span>
+          </div>
+        </div>
+
+        <div class="queue-note">
+          <strong>Aviso:</strong> Mantenha esta página aberta. O redirecionamento acontecerá automaticamente para a consulta.
+        </div>
+      </div>
+
+      <div class="card-footer-info">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span>Ambiente Criptografado SSL 256-bit</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Rodapé Neutro Corporativo -->
+  <footer class="site-footer">
+    <p>Central de Atendimento • Proteção de Dados e Privacidade • Todos os direitos reservados</p>
+  </footer>
+
+  <script>
+    (function () {
+      // Somas simples e variadas: 1+2, 2+2, 3+3, 4+4, 1+2, 5+5, etc.
+      var easyPairs = [
+        [1, 2], [2, 1],
+        [2, 2],
+        [3, 3],
+        [4, 4],
+        [5, 5],
+        [2, 3], [3, 2],
+        [1, 3], [3, 1],
+        [1, 4], [4, 1],
+        [2, 4], [4, 2],
+        [3, 4], [4, 3],
+        [1, 5], [5, 1],
+        [2, 5], [5, 2]
+      ];
+
+      var stepVerification = document.getElementById('stepVerification');
+      var stepQueue = document.getElementById('stepQueue');
+      var equationEl = document.getElementById('equationText');
+      var optionsGrid = document.getElementById('optionsGrid');
+      var feedbackMsg = document.getElementById('feedbackMsg');
+      var queueTimer = document.getElementById('queueTimer');
+      var progressBar = document.getElementById('progressBar');
+      var queueStatus = document.getElementById('queueStatus');
+
+      var currentCorrectAnswer = null;
+      var isAnswering = false;
+
+      function shuffle(arr) {
+        var a = arr.slice();
+        for (var i = a.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var temp = a[i];
+          a[i] = a[j];
+          a[j] = temp;
+        }
+        return a;
+      }
+
+      function generateQuestion() {
+        isAnswering = false;
+        feedbackMsg.textContent = '';
+        feedbackMsg.className = 'feedback-box';
+
+        var pair = easyPairs[Math.floor(Math.random() * easyPairs.length)];
+        var num1 = pair[0];
+        var num2 = pair[1];
+        currentCorrectAnswer = num1 + num2;
+
+        equationEl.textContent = num1 + ' + ' + num2 + ' = ?';
+
+        var optionsSet = new Set();
+        optionsSet.add(currentCorrectAnswer);
+
+        var offsets = [-2, -1, 1, 2, 3, -3];
+        var shuffledOffsets = shuffle(offsets);
+
+        for (var i = 0; i < shuffledOffsets.length && optionsSet.size < 4; i++) {
+          var candidate = currentCorrectAnswer + shuffledOffsets[i];
+          if (candidate > 0 && candidate !== currentCorrectAnswer) {
+            optionsSet.add(candidate);
+          }
+        }
+
+        var fallback = 1;
+        while (optionsSet.size < 4) {
+          if (!optionsSet.has(fallback)) {
+            optionsSet.add(fallback);
+          }
+          fallback++;
+        }
+
+        var optionsArray = shuffle(Array.from(optionsSet));
+
+        optionsGrid.innerHTML = '';
+        optionsArray.forEach(function (val) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'btn-calc';
+          btn.textContent = val;
+          btn.setAttribute('data-val', val);
+          btn.addEventListener('click', function () {
+            handleAnswer(val, btn);
+          });
+          optionsGrid.appendChild(btn);
+        });
+      }
+
+      function startQueueCountdown() {
+        stepVerification.style.display = 'none';
+        stepQueue.style.display = 'block';
+
+        var totalSeconds = 10;
+        var remaining = totalSeconds;
+        queueTimer.textContent = remaining;
+        progressBar.style.width = '0%';
+
+        var statusMessages = [
+          { at: 9, msg: 'Conectando ao canal de atendimento...' },
+          { at: 6, msg: 'Sua vaga prioritária foi reservada...' },
+          { at: 3, msg: 'Preparando formulário de identificação...' },
+          { at: 0, msg: 'Acesso liberado! Redirecionando...' }
+        ];
+
+        var interval = setInterval(function () {
+          remaining--;
+          if (remaining < 0) remaining = 0;
+
+          queueTimer.textContent = remaining;
+          var percent = Math.round(((totalSeconds - remaining) / totalSeconds) * 100);
+          progressBar.style.width = percent + '%';
+
+          for (var i = 0; i < statusMessages.length; i++) {
+            if (remaining <= statusMessages[i].at) {
+              queueStatus.textContent = statusMessages[i].msg;
+            }
+          }
+
+          if (remaining <= 0) {
+            clearInterval(interval);
+            setTimeout(function () {
+              var target = 'cpf/';
+              if (typeof window.gvdesenrolaAppendQuery === 'function') {
+                window.location.href = window.gvdesenrolaAppendQuery(target);
+              } else {
+                window.location.href = target + window.location.search;
+              }
+            }, 300);
+          }
+        }, 1000);
+      }
+
+      function handleAnswer(selectedVal, clickedBtn) {
+        if (isAnswering) return;
+        isAnswering = true;
+
+        var allButtons = optionsGrid.querySelectorAll('.btn-calc');
+
+        if (selectedVal === currentCorrectAnswer) {
+          clickedBtn.classList.add('correct');
+          allButtons.forEach(function (b) { b.disabled = true; });
+
+          // Transiciona para a fila de atendimento em 400ms
+          setTimeout(function () {
+            startQueueCountdown();
+          }, 400);
+        } else {
+          clickedBtn.classList.add('wrong');
+          feedbackMsg.className = 'feedback-box error';
+          feedbackMsg.innerHTML = '✖ Resposta incorreta. Tente novamente.';
+
+          setTimeout(function () {
+            generateQuestion();
+          }, 1000);
+        }
+      }
+
+      generateQuestion();
+    })();
+  </script>
 </body>
 </html>

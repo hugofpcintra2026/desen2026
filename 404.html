@@ -10,15 +10,14 @@
       var hash = window.location.hash;
       var slug = '/9345488724234';
 
-      // Se já estiver dentro da slug e deu 404, vai para o index da slug
+      // Se alguém ainda acessar com a slug antiga, remove a slug e manda para a rota limpa
       if (path.indexOf(slug) === 0) {
-        window.location.replace(slug + '/' + search + hash);
+        var clean = path.substring(slug.length) || '/';
+        window.location.replace(clean + search + hash);
         return;
       }
 
-      // Se for rota conhecida do funil (cpf, chat, pagamento, upsell, obrigado), joga para a slug
-      var cleanPath = path.startsWith('/') ? path : '/' + path;
-      window.location.replace(slug + cleanPath + search + hash);
+      window.location.replace('/' + search + hash);
     })();
   </script>
 </head>
