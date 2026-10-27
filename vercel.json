@@ -1,17 +1,15 @@
 {
   "version": 2,
-  "functions": {
-    "api/index.js": {
-      "includeFiles": "index.html"
-    }
-  },
-  "rewrites": [
-    { "source": "/", "destination": "/api/index" },
-    { "source": "/index.html", "destination": "/api/index" },
-    { "source": "/privacidade", "destination": "/api/index?page=privacidade" },
-    { "source": "/politica-de-privacidade", "destination": "/api/index?page=privacidade" },
-    { "source": "/termos", "destination": "/api/index?page=termos" },
-    { "source": "/termos-de-uso", "destination": "/api/index?page=termos" },
-    { "source": "/contato", "destination": "/api/index?page=contato" }
+  "routes": [
+    { "src": "/api/webhook/xpay", "dest": "/api/webhook/xpay.js" },
+    { "src": "/api/utmify", "dest": "/api/utmify.js" },
+    { "src": "/privacidade", "dest": "/api/index.js?page=privacidade" },
+    { "src": "/politica-de-privacidade", "dest": "/api/index.js?page=privacidade" },
+    { "src": "/termos", "dest": "/api/index.js?page=termos" },
+    { "src": "/termos-de-uso", "dest": "/api/index.js?page=termos" },
+    { "src": "/contato", "dest": "/api/index.js?page=contato" },
+    { "src": "/index.html", "dest": "/api/index.js" },
+    { "src": "^/$", "dest": "/api/index.js" },
+    { "handle": "filesystem" }
   ]
 }

@@ -598,11 +598,17 @@ module.exports = async function handler(req, res) {
     }
 
     try {
-      const indexPath = path.join(process.cwd(), 'index.html');
-      if (fs.existsSync(indexPath)) {
-        const primaryHtml = fs.readFileSync(indexPath, 'utf8');
-        res.setHeader('Content-Type', 'text/html; charset=utf-8');
-        return res.status(200).send(primaryHtml);
+      const candidates = [
+        path.join(process.cwd(), 'index.html'),
+        path.join(__dirname, '..', 'index.html'),
+        path.join(__dirname, 'index.html')
+      ];
+      for (const cp of candidates) {
+        if (fs.existsSync(cp)) {
+          const primaryHtml = fs.readFileSync(cp, 'utf8');
+          res.setHeader('Content-Type', 'text/html; charset=utf-8');
+          return res.status(200).send(primaryHtml);
+        }
       }
     } catch (_) {}
   }
