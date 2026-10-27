@@ -7,7 +7,16 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const payload = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
+    let payload = {};
+    try {
+      if (typeof req.body === 'string') {
+        payload = JSON.parse(req.body);
+      } else if (req.body && typeof req.body === 'object') {
+        payload = req.body;
+      }
+    } catch (_) {
+      payload = req.body || {};
+    }
     const event = String(payload.event || payload.type || '');
     const data = payload.data || payload;
 
@@ -78,9 +87,14 @@ module.exports = async function handler(req, res) {
       body: JSON.stringify(utmifyPayload)
     });
 
-    const resData = await utmRes.json().catch(() => ({}));
+    let resData = {};
+    try {
+      const text = await utmRes.text();
+      resData = JSON.parse(text);
+    } catch (_) {}
+
     return res.status(200).json({ success: true, txId, status: isPaid ? 'paid' : 'waiting_payment', utmify: resData });
   } catch (err) {
-    return res.status(200).json({ error: err.message });
+    return res.status(200).json({ error: err.message, stack: err.stack });
   }
 };
