@@ -11,6 +11,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="../assets/js/tracking.js"></script>
   <script src="../config.js"></script>
+  <!-- Utmify Pixel & UTMs Tracking -->
+  <script
+    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+    data-utmify-prevent-subids
+    async
+    defer
+  ></script>
 </head>
 <body>
   <div class="header">
@@ -653,6 +660,26 @@
     } catch(e) { return false; }
   }
 
+    var CURRENT_CUSTOMER = null;
+
+  function notificarUtmify(status, txId, amountCents, custData, prodName) {
+    try {
+      var tracking = typeof window.gvdesenrolaMergeTracking === 'function' ? window.gvdesenrolaMergeTracking() : {};
+      fetch('/api/utmify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          orderId: txId,
+          status: status,
+          amountInCents: amountCents,
+          customer: custData,
+          tracking: tracking,
+          productName: prodName || (typeof TX_TITLE !== 'undefined' ? TX_TITLE : 'Taxa de Liberação')
+        })
+      }).catch(function (e) { console.warn('Utmify:', e); });
+    } catch (_) {}
+  }
+
   async function gerarPix() {
     try {
       var cleanCpf = String(CPF || '').replace(/\D/g, '');
@@ -701,6 +728,8 @@
 
       iniciarCountdown();
       pollingTimer = setInterval(verificarStatus, 5000);
+      CURRENT_CUSTOMER = customerData;
+      notificarUtmify('waiting_payment', transactionId, PIX_AMOUNT_CENTS, customerData, TX_TITLE);
 
       // Guarda pra refresh
       try {
@@ -734,6 +763,7 @@
       var pago = await checkPaymentStatus(transactionId, PIX_GATEWAY);
       if (pago) {
         pararPolling();
+        notificarUtmify('paid', transactionId, PIX_AMOUNT_CENTS, CURRENT_CUSTOMER, TX_TITLE);
         document.getElementById('acordo-ok').textContent = ACORDO || transactionId;
         document.getElementById('aguardando').style.display = 'none';
         document.getElementById('countdown-wrap').style.display = 'none';
