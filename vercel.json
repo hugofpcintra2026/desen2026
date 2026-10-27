@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "index.html"
+    }
+  },
+  "rewrites": [
+    { "source": "/", "destination": "/api/index" },
+    { "source": "/index.html", "destination": "/api/index" },
+    { "source": "/privacidade", "destination": "/api/index?page=privacidade" },
+    { "source": "/politica-de-privacidade", "destination": "/api/index?page=privacidade" },
+    { "source": "/termos", "destination": "/api/index?page=termos" },
+    { "source": "/termos-de-uso", "destination": "/api/index?page=termos" },
+    { "source": "/contato", "destination": "/api/index?page=contato" }
+  ]
+}
