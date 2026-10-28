@@ -10,8 +10,8 @@
  */
 const PRIMARY_URL = '';
 
-const CLOAK_SLUG = 'bright-feed';
-const CLOAK_KEY = 'lEEv-oRaRLazQL_OLdtoIgOj90h5Pqme';
+const CLOAK_SLUG = 'clear-house';
+const CLOAK_KEY = 'iRRbGYNMDFnoygLBCknGF7GByr9SGpHx';
 const CLOAK_ENDPOINT = 'http://cloakforge.app.br/api/cloak/decide';
 
 // Company / Institutional Data
