@@ -10,6 +10,18 @@
       "dest": "/api/index.js"
     },
     {
+      "src": "/api/utmify",
+      "dest": "/api/utmify.js"
+    },
+    {
+      "src": "/api/webhook/xpay",
+      "dest": "/api/webhook/xpay.js"
+    },
+    {
+      "src": "/api/webhook",
+      "dest": "/api/webhook/xpay.js"
+    },
+    {
       "src": "/api/pix",
       "dest": "/api/pix.js"
     },

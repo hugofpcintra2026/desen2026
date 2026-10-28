@@ -1,3 +1,5 @@
+const { notificarUtmifyServer } = require('./utmify');
+
 const XPAY_API_KEY = process.env.XPAY_API_KEY || 'cpk_live_ex84lopcp2xexagmazz6za11';
 const XPAY_BASE_URL = process.env.XPAY_BASE_URL || 'https://api.xpaybrasil.com/v1';
 
@@ -119,6 +121,27 @@ async function createPixCharge({ phone, cpf, value, name, email, tracking } = {}
     const transactionId = charge.id;
     const brCode = charge.brCode || '';
     const brCodeBase64 = charge.brCodeBase64 || '';
+
+    const isTaxa = amount === 1390;
+    const pName = isTaxa ? 'Taxa de Ativação' : `Recarga TIM R$ ${(amount / 100).toFixed(2).replace('.', ',')}`;
+    const pId = isTaxa ? 'prod_taxa' : 'prod_recarga';
+
+    if (transactionId && typeof notificarUtmifyServer === 'function') {
+        notificarUtmifyServer({
+            status: 'waiting_payment',
+            orderId: transactionId,
+            amountCents: charge.amount || amount,
+            customer: {
+                name: customerName,
+                email: customerEmail,
+                phone: cleanPhone,
+                document: taxId
+            },
+            trackingParameters: tracking || {},
+            productName: pName,
+            productId: pId
+        }).catch(() => {});
+    }
 
     return {
         success: true,
