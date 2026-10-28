@@ -1,0 +1,5 @@
+/xpay-proxy/*  https://api.xpaybrasil.com/v1/:splat  200!
+/api/pix  /.netlify/functions/pix  200
+/api/status/*  /.netlify/functions/status?id=:splat  200
+/api/check_status  /.netlify/functions/check_status  200
+/api/upload-comprovante  /.netlify/functions/upload-comprovante  200

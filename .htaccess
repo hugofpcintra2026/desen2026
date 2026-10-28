@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteRule ^api/pix/?$ api/pix.php [L,QSA]
+RewriteRule ^api/status/([^/]+)/?$ api/status.php?id=$1 [L,QSA]
+RewriteRule ^api/check_status/?$ api/status.php [L,QSA]

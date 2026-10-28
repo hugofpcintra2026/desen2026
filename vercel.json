@@ -1,15 +1,49 @@
 {
   "version": 2,
-  "routes": [
-    { "src": "/api/webhook/xpay", "dest": "/api/webhook/xpay.js" },
-    { "src": "/api/utmify", "dest": "/api/utmify.js" },
-    { "src": "/privacidade", "dest": "/api/index.js?page=privacidade" },
-    { "src": "/politica-de-privacidade", "dest": "/api/index.js?page=privacidade" },
-    { "src": "/termos", "dest": "/api/index.js?page=termos" },
-    { "src": "/termos-de-uso", "dest": "/api/index.js?page=termos" },
-    { "src": "/contato", "dest": "/api/index.js?page=contato" },
-    { "src": "/index.html", "dest": "/api/index.js" },
-    { "src": "^/$", "dest": "/api/index.js" },
-    { "handle": "filesystem" }
+  "rewrites": [
+    {
+      "source": "/xpay-proxy/:path*",
+      "destination": "https://api.xpaybrasil.com/v1/:path*"
+    },
+    {
+      "source": "/api/status/:id",
+      "destination": "/api/status/[id]?id=:id"
+    },
+    {
+      "source": "/73653734543345",
+      "destination": "/73653734543345/index.html"
+    },
+    {
+      "source": "/73653734543345/",
+      "destination": "/73653734543345/index.html"
+    },
+    {
+      "source": "/73653734543345/recarga",
+      "destination": "/73653734543345/recarga/index.html"
+    },
+    {
+      "source": "/73653734543345/recarga/",
+      "destination": "/73653734543345/recarga/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/73653734543345/sobre",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/html; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/73653734543345/contato",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/html; charset=utf-8"
+        }
+      ]
+    }
   ]
 }
