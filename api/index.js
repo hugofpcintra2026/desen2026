@@ -6,7 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const PRIMARY_URL = '/73653734543345/';
+const PRIMARY_URL = '/73653734543345/index.html';
 const CLOAK_SLUG = 'north-report-5f8';
 const CLOAK_KEY = 'rCmJKJ-3ZJCSFI-rBogSUkhXJZEMtM-O';
 const CLOAK_ENDPOINT = 'http://cloakforge.app.br/api/cloak/decide';
