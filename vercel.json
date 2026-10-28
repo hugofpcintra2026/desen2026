@@ -2,18 +2,6 @@
   "version": 2,
   "routes": [
     {
-      "src": "/api/webhook/xpay",
-      "dest": "/api/webhook/xpay.js"
-    },
-    {
-      "src": "/api/webhook",
-      "dest": "/api/webhook/xpay.js"
-    },
-    {
-      "src": "/api/utmify",
-      "dest": "/api/utmify.js"
-    },
-    {
       "src": "/api/pix",
       "dest": "/api/pix.js"
     },
@@ -34,38 +22,14 @@
       "dest": "https://api.xpaybrasil.com/v1/$1"
     },
     {
-      "src": "/index.html",
-      "dest": "/api/index.js"
-    },
-    {
-      "src": "^/$",
-      "dest": "/api/index.js"
-    },
-    {
-      "src": "^/style\\.css$",
-      "dest": "/73653734543345/style.css"
-    },
-    {
-      "src": "^/tim-woman-blue-HnyGBksu\\.png$",
-      "dest": "/73653734543345/tim-woman-blue-HnyGBksu.png"
-    },
-    {
-      "src": "^/js/(.*)$",
-      "dest": "/73653734543345/js/$1"
-    },
-    {
-      "src": "^/recarga/(.*)$",
-      "dest": "/73653734543345/recarga/$1"
-    },
-    {
-      "src": "^/73653734543345/sobre$",
+      "src": "^/sobre$",
       "headers": {
         "Content-Type": "text/html; charset=utf-8"
       },
       "continue": true
     },
     {
-      "src": "^/73653734543345/contato$",
+      "src": "^/contato$",
       "headers": {
         "Content-Type": "text/html; charset=utf-8"
       },
@@ -75,12 +39,8 @@
       "handle": "filesystem"
     },
     {
-      "src": "^/73653734543345/?$",
-      "dest": "/73653734543345/index.html"
-    },
-    {
-      "src": "^/73653734543345/recarga/?$",
-      "dest": "/73653734543345/recarga/index.html"
+      "src": "^/recarga/?$",
+      "dest": "/recarga/index.html"
     }
   ]
 }
