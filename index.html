@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ducha Prime | Lavagem, Lubrificação e Polimento de Veículos em Goiânia - GO</title>
-  <meta name="description" content="68.414.896 Anisclei Cintra (CNPJ 68.414.896/0001-99) - Ducha Prime. Serviços especializados de lavagem detalhada, lubrificação e polimento de veículos automotores no Residencial Porto Seguro, Goiânia - GO." />
+  <title>Guia Conectado 5G | E-book Completo de Otimização de Celular e Economia de Dados</title>
+  <meta name="description" content="E-book digital sobre conectividade móvel, configuração de internet 4G/5G, economia de franquia de dados e segurança no celular. Publicado por 68.413.071 Gabriel de Souza Duarte (CNPJ 68.413.071/0001-50)." />
   <meta name="robots" content="index, follow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,9 +12,9 @@
   <style>
     :root {
       --primary: #0f172a;
-      --accent: #0284c7;
-      --accent-hover: #0369a1;
-      --accent-light: #e0f2fe;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --accent-light: #dbeafe;
       --text: #1e293b;
       --muted: #475569;
       --bg: #f8fafc;
@@ -28,7 +28,7 @@
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       color: var(--text);
       background-color: var(--bg);
-      line-height: 1.6;
+      line-height: 1.65;
     }
     a { color: inherit; text-decoration: none; }
     .container {
@@ -36,7 +36,6 @@
       margin: 0 auto;
       padding: 0 20px;
     }
-    /* Topbar Institucional */
     .topbar {
       background-color: var(--primary);
       color: #cbd5e1;
@@ -52,7 +51,6 @@
       gap: 8px;
     }
     .topbar strong { color: #ffffff; }
-    /* Header */
     header {
       background: #ffffff;
       border-bottom: 1px solid var(--border);
@@ -106,7 +104,7 @@
       color: #ffffff;
       font-weight: 600;
       font-size: 14px;
-      padding: 11px 20px;
+      padding: 12px 22px;
       border-radius: 8px;
       border: none;
       cursor: pointer;
@@ -115,33 +113,31 @@
     .btn:hover { background-color: var(--accent-hover); color: #ffffff; }
     .btn-outline {
       background-color: transparent;
-      color: var(--primary);
-      border: 1px solid var(--border);
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.35);
     }
     .btn-outline:hover {
-      background-color: #f1f5f9;
-      color: var(--primary);
+      background-color: rgba(255,255,255,0.1);
     }
-    /* Hero */
     .hero {
-      background: linear-gradient(135deg, #0f172a 0%, #0c4a6e 100%);
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
       color: #ffffff;
-      padding: 72px 0 68px;
+      padding: 76px 0 72px;
     }
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 40px;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 44px;
       align-items: center;
     }
     .badge {
       display: inline-block;
-      background: rgba(56, 189, 248, 0.18);
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      color: #bae6fd;
+      background: rgba(96, 165, 250, 0.2);
+      border: 1px solid rgba(96, 165, 250, 0.45);
+      color: #bfdbfe;
       font-size: 12px;
       font-weight: 600;
-      padding: 5px 12px;
+      padding: 5px 14px;
       border-radius: 999px;
       margin-bottom: 16px;
     }
@@ -163,34 +159,64 @@
       flex-wrap: wrap;
       gap: 12px;
     }
-    .hero-card {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 14px;
-      padding: 26px;
+    .ebook-mockup {
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.35);
     }
-    .hero-card h2 {
-      font-size: 17px;
+    .ebook-tag {
+      display: inline-block;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 11px;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: 6px;
       margin-bottom: 14px;
+    }
+    .ebook-mockup h2 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 10px;
       color: #ffffff;
     }
-    .info-list {
+    .ebook-mockup p {
+      font-size: 13.5px;
+      color: #94a3b8;
+      margin-bottom: 18px;
+    }
+    .ebook-specs {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 10px;
       font-size: 13.5px;
       color: #e2e8f0;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding-top: 16px;
+      margin-bottom: 20px;
     }
-    .info-list li strong {
-      color: #7dd3fc;
-      display: block;
-      font-size: 11.5px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+    .ebook-price-box {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.06);
+      padding: 14px 18px;
+      border-radius: 10px;
     }
-    /* Sections */
+    .ebook-price-box span {
+      font-size: 12px;
+      color: #cbd5e1;
+    }
+    .ebook-price-box strong {
+      font-size: 26px;
+      font-weight: 800;
+      color: #60a5fa;
+    }
     section { padding: 68px 0; }
     .section-header {
       text-align: center;
@@ -216,7 +242,6 @@
       color: var(--muted);
       font-size: 15.5px;
     }
-    /* Grid Cards */
     .grid-3 {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -240,7 +265,7 @@
       justify-content: center;
       margin-bottom: 18px;
       font-weight: 800;
-      font-size: 18px;
+      font-size: 16px;
     }
     .card h3 {
       font-size: 18px;
@@ -264,11 +289,10 @@
       padding: 4px 0;
     }
     .card ul li::before {
-      content: "• ";
+      content: "✓ ";
       color: var(--accent);
       font-weight: bold;
     }
-    /* Steps */
     .steps-section {
       background: #ffffff;
       border-top: 1px solid var(--border);
@@ -305,7 +329,6 @@
       font-size: 14px;
       color: var(--muted);
     }
-    /* Institutional Data Box */
     .cnpj-box {
       background: #ffffff;
       border: 1px solid var(--border);
@@ -337,7 +360,6 @@
       color: var(--primary);
       word-break: break-word;
     }
-    /* Contact Section */
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -378,7 +400,6 @@
     .consent-check input {
       margin-top: 3px;
     }
-    /* Footer */
     footer {
       background: var(--primary);
       color: #cbd5e1;
@@ -416,7 +437,6 @@
       font-size: 12.5px;
       color: #94a3b8;
     }
-    /* Cookie Banner */
     #cookie-banner {
       position: fixed;
       bottom: 16px;
@@ -444,7 +464,7 @@
       min-width: 240px;
     }
     #cookie-banner a {
-      color: #38bdf8;
+      color: #60a5fa;
       text-decoration: underline;
     }
     @media (max-width: 820px) {
@@ -457,272 +477,252 @@
 </head>
 <body>
 
-  <!-- Topbar com Identificação Fiscal Transparente -->
   <div class="topbar">
     <div class="container topbar-inner">
       <div>
-        <strong>Razão Social:</strong> 68.414.896 Anisclei Cintra &nbsp;|&nbsp; <strong>CNPJ:</strong> 68.414.896/0001-99
+        <strong>Razão Social:</strong> 68.413.071 Gabriel de Souza Duarte &nbsp;|&nbsp; <strong>CNPJ:</strong> 68.413.071/0001-50
       </div>
       <div>
-        <strong>Localização:</strong> Av. Ravena, S/N, Qd. 01 Lt. 24/25, Res. Porto Seguro — Goiânia/GO &nbsp;|&nbsp; <strong>Tel/WhatsApp:</strong> (62) 99133-6320
+        <strong>Localização:</strong> Rua Marumbi, 44, Cidade de Deus — Manaus/AM &nbsp;|&nbsp; <strong>Tel:</strong> (66) 5667-8997
       </div>
     </div>
   </div>
 
-  <!-- Cabeçalho -->
   <header>
     <div class="container nav-wrap">
       <a href="index.html" class="brand">
-        <span class="brand-name">Ducha Prime Estética Automotiva</span>
-        <span class="brand-sub">68.414.896 Anisclei Cintra • Goiânia - GO</span>
+        <span class="brand-name">Guia Conectado 5G • E-books Digitais</span>
+        <span class="brand-sub">68.413.071 Gabriel de Souza Duarte • Manaus - AM</span>
       </a>
       <nav aria-label="Menu Principal">
-        <a href="#servicos">Serviços</a>
-        <a href="#como-funciona">Atendimento</a>
+        <a href="#conteudo">Conteúdo do E-book</a>
+        <a href="#como-funciona">Entrega Digital</a>
         <a href="#dados-empresa">Dados Cadastrais</a>
         <a href="contato.html">Contato</a>
         <a href="privacidade.html">Privacidade</a>
         <a href="termos.html">Termos de Uso</a>
       </nav>
-      <a href="#agendamento" class="btn">Agendar Serviço</a>
+      <a href="#adquirir" class="btn">Adquirir E-book</a>
     </div>
   </header>
 
-  <!-- Hero Section -->
   <section class="hero">
     <div class="container hero-grid">
       <div>
-        <span class="badge">CNAE 45.20-0-05 • Estética e Conservação Automotiva</span>
-        <h1>Serviços de Lavagem, Lubrificação e Polimento de Veículos Automotores</h1>
+        <span class="badge">Publicação Digital • Conectividade Móvel e Smartphones</span>
+        <h1>E-book: Guia Prático de Desempenho Móvel, Internet 5G e Economia de Dados no Celular</h1>
         <p>
-          Atendimento presencial em Goiânia - GO especializado em lavagem técnica automotiva, higienização interna, lubrificação preventiva de componentes móveis e polimento técnico de pintura com produtos certificados.
+          Aprenda passo a passo como configurar corretamente a rede móvel do seu smartphone (Android e iOS), reduzir o consumo oculto de pacote de dados em até 60%, melhorar a estabilidade de sinal 4G/5G e proteger seus aplicativos bancários.
         </p>
         <div class="hero-actions">
-          <a href="#agendamento" class="btn">Solicitar Orçamento / Agendamento</a>
-          <a href="https://api.whatsapp.com/send?phone=5562991336320" target="_blank" rel="noopener noreferrer" class="btn" style="background:#16a34a;">Atendimento via WhatsApp</a>
-          <a href="tel:+5562991336320" class="btn btn-outline" style="color:#ffffff;border-color:rgba(255,255,255,0.3);">Ligar: (62) 99133-6320</a>
+          <a href="#adquirir" class="btn">Solicitar Exemplar Digital (PDF)</a>
+          <a href="#conteudo" class="btn btn-outline">Ver Capítulos do Guia</a>
         </div>
       </div>
 
-      <div class="hero-card">
-        <h2>Unidade Física de Atendimento — Goiânia/GO</h2>
-        <ul class="info-list">
-          <li>
-            <strong>Empresa Registrada</strong>
-            68.414.896 Anisclei Cintra (CNPJ: 68.414.896/0001-99)
-          </li>
-          <li>
-            <strong>Endereço Completo</strong>
-            Avenida Ravena, S/N, Quadra 01 Lote 24/25, Bairro Residencial Porto Seguro, CEP 74366-200 — Goiânia/GO
-          </li>
-          <li>
-            <strong>Canais Oficiais de Contato</strong>
-            Telefone / WhatsApp: (62) 99133-6320<br />
-            E-mail: duchaprimeoficial@gmail.com
-          </li>
-          <li>
-            <strong>Modalidade de Serviço</strong>
-            Execução 100% presencial em box próprio com vistoria prévia do veículo e orçamento transparente antes do início do serviço.
-          </li>
+      <div class="ebook-mockup">
+        <span class="ebook-tag">Edição Atualizada 2026 • PDF Digital</span>
+        <h2>Manual Completo do Usuário de Smartphone</h2>
+        <p>Material educativo independente desenvolvido para usuários de todas as operadoras móveis brasileiras.</p>
+        <ul class="ebook-specs">
+          <li>📘 <strong>Formato:</strong> Livro Digital (PDF de leitura imediata no celular ou PC)</li>
+          <li>📄 <strong>Extensão:</strong> 94 páginas ilustradas passo a passo</li>
+          <li>📶 <strong>Temas:</strong> Otimização de Dados Móveis, APN, eSIM, Segurança e Bateria</li>
+          <li>🛡️ <strong>Garantia Legal:</strong> 7 dias conforme Art. 49 do CDC</li>
         </ul>
+        <div class="ebook-price-box">
+          <span>Licença Individual de Leitura</span>
+          <strong>R$ 29,90</strong>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Seção de Serviços -->
-  <section id="servicos">
+  <section id="conteudo">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Nossas Especialidades (CNAE 45.20-0-05)</span>
-        <h2>Cuidado Completo e Conservação para seu Veículo</h2>
+        <span class="section-tag">O Que Você Vai Aprender</span>
+        <h2>Capítulos e Módulos do E-book</h2>
         <p>
-          Trabalhamos com processos padronizados de limpeza automotiva, proteção de superfícies e lubrificação de chassis e articulações para carros de passeio, utilitários e caminhonetes.
+          Um guia direto ao ponto, escrito em linguagem acessível para você aproveitar o máximo da sua conexão móvel e evitar gastos desnecessários com franquia de internet.
         </p>
       </div>
 
       <div class="grid-3">
         <div class="card">
-          <div class="card-icon">01</div>
-          <h3>Lavagem Automotiva Completa e Detalhada</h3>
+          <div class="card-icon">M01</div>
+          <h3>Economia Inteligente de Franquia de Dados</h3>
           <p>
-            Lavagem externa e limpeza interna cuidadosa com shampoos automotivos de pH neutro que preservam o verniz, borrachas e plásticos originais do veículo.
+            Descubra quais configurações nativas do Android e do iPhone consomem sua internet móvel em segundo plano sem você perceber.
           </p>
           <ul>
-            <li>Ducha técnica com pré-lavagem e espuma ativa</li>
-            <li>Aspiração completa de carpetes, bancos e porta-malas</li>
-            <li>Limpeza de caixas de roda, pneus e revitalização de plásticos</li>
-            <li>Secagem com toalhas de microfibra de alta absorção</li>
+            <li>Configuração do Modo de Economia de Dados no sistema</li>
+            <li>Bloqueio de downloads automáticos em redes móveis</li>
+            <li>Ajuste de qualidade de streaming e redes sociais</li>
+            <li>Monitoramento de consumo por aplicativo e alertas de limite</li>
           </ul>
         </div>
 
         <div class="card">
-          <div class="card-icon">02</div>
-          <h3>Lubrificação e Conservação Preventiva</h3>
+          <div class="card-icon">M02</div>
+          <h3>Estabilidade de Sinal 4G/5G e Configuração de Rede</h3>
           <p>
-            Aplicação técnica de lubrificantes e protetivos em pontos articulados, chassis, dobradiças e borrachas de vedação, reduzindo atritos e prevenindo oxidação.
+            Ajustes técnicos recomendados para melhorar a recepção de sinal e evitar quedas de conexão em viagens ou áreas urbanas densas.
           </p>
           <ul>
-            <li>Lubrificação de dobradiças, trilhos e fechaduras</li>
-            <li>Hidratação e proteção de borrachas e guarnições de porta</li>
-            <li>Limpeza e proteção de chassi pós-uso em estradas de terra</li>
-            <li>Verificação visual de níveis e conservação externa</li>
+            <li>Quando usar 5G Automático vs. 4G/LTE para poupar bateria</li>
+            <li>Revisão de Ponto de Acesso (APN) e seleção de rede</li>
+            <li>Como funciona o chip virtual (eSIM) e dual-SIM</li>
+            <li>Chamadas via Wi-Fi (VoWiFi) e Voz sobre LTE (VoLTE)</li>
           </ul>
         </div>
 
         <div class="card">
-          <div class="card-icon">03</div>
-          <h3>Polimento Técnico e Proteção de Pintura</h3>
+          <div class="card-icon">M03</div>
+          <h3>Segurança no Celular e Vida Útil da Bateria</h3>
           <p>
-            Correção estética da camada de verniz para remoção de micro-riscos, marcas de lavagens incorretas (swirls) e oxidação superficial, devolvendo o brilho original.
+            Boas práticas indispensáveis para blindar seu número contra clonagem de chip (SIM Swap) e preservar a saúde da bateria.
           </p>
           <ul>
-            <li>Descontaminação de pintura com barra limpa-superfície (Clay Bar)</li>
-            <li>Polimento comercial e técnico em etapas (corte, refino e lustro)</li>
-            <li>Aplicação de cera carnaúba ou selante sintético de alta proteção</li>
-            <li>Revitalização de faróis e acabamento externo detalhado</li>
+            <li>Ativação do PIN do chip (SIM Card) em todas as operadoras</li>
+            <li>Proteção de aplicativos financeiros e autenticação em 2 fatores</li>
+            <li>Ciclos corretos de recarga de bateria de íons de lítio</li>
+            <li>Limpeza segura de armazenamento e memória cache</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Como Funciona -->
   <section id="como-funciona" class="steps-section">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Transparência e Qualidade</span>
-        <h2>Como Funciona Nosso Atendimento Presencial</h2>
+        <span class="section-tag">Acesso Simples e Transparente</span>
+        <h2>Como Funciona o Recebimento do Material</h2>
         <p>
-          Todos os serviços seguem etapas claras de recepção, avaliação estética e conferência na entrega, em conformidade com o Código de Defesa do Consumidor.
+          Todo o processo segue as normas do comércio eletrônico brasileiro (Decreto nº 7.962/2013) e do Código de Defesa do Consumidor.
         </p>
       </div>
 
       <div class="grid-4">
         <div class="step-box">
-          <span class="step-num">Etapa 1</span>
-          <h3>Recepção e Check-list</h3>
-          <p>Recebemos seu veículo na Avenida Ravena, S/N (Qd. 01 Lt. 24/25, Residencial Porto Seguro) e realizamos a vistoria visual inicial.</p>
+          <span class="step-num">Passo 1</span>
+          <h3>Cadastro do Pedido</h3>
+          <p>Preencha seus dados básicos (nome, e-mail e telefone) no formulário de pedido abaixo para receber as instruções de pagamento.</p>
         </div>
         <div class="step-box">
-          <span class="step-num">Etapa 2</span>
-          <h3>Orçamento Prévio Claro</h3>
-          <p>Informamos detalhadamente os valores de cada serviço (lavagem, lubrificação ou polimento) e o prazo estimado de entrega antes de iniciar.</p>
+          <span class="step-num">Passo 2</span>
+          <h3>Confirmação Segura</h3>
+          <p>Você recebe no seu e-mail o resumo do pedido no valor único de R$ 29,90, sem cobranças recorrentes ou mensalidades.</p>
         </div>
         <div class="step-box">
-          <span class="step-num">Etapa 3</span>
-          <h3>Execução com Produtos Seguros</h3>
-          <p>Nossa equipe executa o serviço utilizando equipamentos adequados, produtos biodegradáveis e técnicas que protegem a pintura e os componentes.</p>
+          <span class="step-num">Passo 3</span>
+          <h3>Envio do E-book em PDF</h3>
+          <p>Após a confirmação, o link de download do arquivo PDF completo é enviado diretamente para o seu e-mail cadastrado.</p>
         </div>
         <div class="step-box">
-          <span class="step-num">Etapa 4</span>
-          <h3>Inspeção Final e Entrega</h3>
-          <p>Conferimos o acabamento junto ao cliente na retirada do veículo, garantindo total satisfação e emitindo o comprovante do serviço prestado.</p>
+          <span class="step-num">Passo 4</span>
+          <h3>Suporte e Garantia de 7 Dias</h3>
+          <p>Conte com suporte por e-mail ou telefone e garantia incondicional de reembolso em até 7 dias corridos após o recebimento.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Dados Cadastrais Oficiais -->
   <section id="dados-empresa">
     <div class="container">
       <div class="cnpj-box">
-        <span class="section-tag">Identificação Institucional e Fiscal</span>
+        <span class="section-tag">Transparência e Identificação Fiscal</span>
         <h2 style="font-size:24px;color:var(--primary);font-weight:800;margin-bottom:8px;">
-          Dados Oficiais da Empresa Registrada
+          Dados Oficiais da Empresa Responsável
         </h2>
         <p style="color:var(--muted);font-size:14.5px;">
-          Em cumprimento às normas de transparência comercial e ao Decreto Federal nº 7.962/2013, disponibilizamos abaixo todas as informações cadastrais da nossa empresa:
+          Em cumprimento às normas de transparência comercial e ao Decreto Federal nº 7.962/2013, disponibilizamos abaixo todas as informações cadastrais do responsável por esta publicação digital:
         </p>
 
         <div class="cnpj-grid">
           <div class="cnpj-item">
             <span>Razão Social</span>
-            <strong>68.414.896 Anisclei Cintra</strong>
+            <strong>68.413.071 Gabriel de Souza Duarte</strong>
           </div>
           <div class="cnpj-item">
             <span>CNPJ</span>
-            <strong>68.414.896/0001-99 (68414896000199)</strong>
+            <strong>68.413.071/0001-50</strong>
           </div>
           <div class="cnpj-item">
-            <span>Atividade Principal (CNAE)</span>
-            <strong>45.20-0-05 - Serviços de lavagem, lubrificação e polimento de veículos automotores</strong>
+            <span>Produto Comercializado</span>
+            <strong>E-book Digital: Guia Prático de Desempenho Móvel e Economia de Dados (PDF)</strong>
           </div>
           <div class="cnpj-item">
-            <span>Endereço Físico</span>
-            <strong>Avenida Ravena, S/N, Quadra 01 Lote 24/25, Bairro Residencial Porto Seguro</strong>
+            <span>Endereço Sede</span>
+            <strong>Rua Marumbi, 44, Bairro Cidade de Deus</strong>
           </div>
           <div class="cnpj-item">
             <span>Município / UF / CEP</span>
-            <strong>Goiânia - Goiás (GO) | CEP: 74366-200</strong>
+            <strong>Manaus - Amazonas (AM) | CEP: 69099-299</strong>
           </div>
           <div class="cnpj-item">
-            <span>Telefone / WhatsApp / E-mail</span>
-            <strong>(62) 99133-6320 | duchaprimeoficial@gmail.com</strong>
+            <span>Canais de Atendimento (SAC)</span>
+            <strong>(66) 5667-8997 | estrelaesrelinha55@gmail.com</strong>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Seção de Agendamento / Contato -->
-  <section id="agendamento" style="background:#ffffff;border-top:1px solid var(--border);">
+  <section id="adquirir" style="background:#ffffff;border-top:1px solid var(--border);">
     <div class="container">
       <div class="contact-grid">
         <div>
-          <span class="section-tag">Atendimento ao Cliente</span>
+          <span class="section-tag">Pedido e Atendimento ao Leitor</span>
           <h2 style="font-size:28px;color:var(--primary);font-weight:800;margin-bottom:12px;">
-            Agende uma Lavagem ou Solicite um Orçamento de Polimento
+            Adquira seu E-book ou Tire suas Dúvidas
           </h2>
           <p style="color:var(--muted);font-size:15px;margin-bottom:24px;">
-            Preencha o formulário ao lado para solicitar o agendamento do seu veículo ou entre em contato diretamente pelo nosso telefone, WhatsApp ou e-mail institucional.
+            Preencha o formulário ao lado para receber o link de aquisição do <strong>Guia Conectado 5G (R$ 29,90)</strong> diretamente no seu e-mail, ou entre em contato com nosso atendimento.
           </p>
 
           <div class="card" style="background:var(--bg);">
-            <h3 style="font-size:16px;margin-bottom:12px;">Canais Diretos de Atendimento</h3>
-            <p style="margin-bottom:8px;"><strong>Endereço:</strong> Avenida Ravena, S/N, Complemento: Quadra 01 Lote 24/25, Bairro Residencial Porto Seguro, CEP 74366-200, Goiânia - GO</p>
-            <p style="margin-bottom:8px;"><strong>Telefone Fixo / Celular:</strong> <a href="tel:+5562991336320" style="color:var(--accent);font-weight:600;">(62) 99133-6320</a></p>
-            <p style="margin-bottom:8px;"><strong>WhatsApp Oficial:</strong> <a href="https://api.whatsapp.com/send?phone=5562991336320" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:600;">(62) 99133-6320 (Iniciar Conversa)</a></p>
-            <p style="margin-bottom:8px;"><strong>E-mail:</strong> <a href="mailto:duchaprimeoficial@gmail.com" style="color:var(--accent);font-weight:600;">duchaprimeoficial@gmail.com</a></p>
-            <p style="margin-bottom:0;"><strong>Horário de Funcionamento:</strong> Segunda a Sábado, das 08h00 às 18h00</p>
+            <h3 style="font-size:16px;margin-bottom:12px;">Canais Diretos de Suporte ao Cliente</h3>
+            <p style="margin-bottom:8px;"><strong>Empresa:</strong> 68.413.071 Gabriel de Souza Duarte (CNPJ: 68.413.071/0001-50)</p>
+            <p style="margin-bottom:8px;"><strong>Endereço:</strong> Rua Marumbi, 44, Cidade de Deus, Manaus - AM, CEP 69099-299</p>
+            <p style="margin-bottom:8px;"><strong>Telefone de Atendimento:</strong> <a href="tel:+556656678997" style="color:var(--accent);font-weight:600;">(66) 5667-8997</a></p>
+            <p style="margin-bottom:8px;"><strong>E-mail Oficial:</strong> <a href="mailto:estrelaesrelinha55@gmail.com" style="color:var(--accent);font-weight:600;">estrelaesrelinha55@gmail.com</a></p>
+            <p style="margin-bottom:0;"><strong>Horário de Atendimento:</strong> Segunda a Sexta, das 09h00 às 18h00</p>
           </div>
         </div>
 
         <div class="card">
-          <h3 style="margin-bottom:16px;">Formulário de Solicitação de Serviço</h3>
+          <h3 style="margin-bottom:16px;">Solicitar E-book Digital (R$ 29,90)</h3>
           <form id="orcamento-form" onsubmit="handleFormSubmit(event)">
             <div class="form-group">
               <label for="nome">Nome Completo *</label>
-              <input type="text" id="nome" name="nome" class="form-control" required placeholder="Digite seu nome" />
+              <input type="text" id="nome" name="nome" class="form-control" required placeholder="Digite seu nome completo" />
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail para Recebimento do PDF *</label>
+              <input type="email" id="email" name="email" class="form-control" required placeholder="seuemail@exemplo.com" />
             </div>
             <div class="form-group">
               <label for="telefone">Telefone / WhatsApp *</label>
-              <input type="tel" id="telefone" name="telefone" class="form-control" required placeholder="(62) 99999-9999" />
+              <input type="tel" id="telefone" name="telefone" class="form-control" required placeholder="(00) 90000-0000" />
             </div>
             <div class="form-group">
-              <label for="email">E-mail</label>
-              <input type="email" id="email" name="email" class="form-control" placeholder="seuemail@exemplo.com" />
-            </div>
-            <div class="form-group">
-              <label for="veiculo">Modelo do Veículo e Serviço Desejado *</label>
-              <select id="veiculo" name="veiculo" class="form-control" required>
-                <option value="">Selecione o serviço principal...</option>
-                <option value="Lavagem Completa / Ducha Técnica">Lavagem Completa / Ducha Técnica</option>
-                <option value="Lubrificação e Conservação de Chassi/Articulações">Lubrificação e Conservação Preventiva</option>
-                <option value="Polimento Técnico e Cristalização de Pintura">Polimento Técnico e Proteção de Pintura</option>
-                <option value="Higienização Interna Automotiva">Higienização Interna Automotiva</option>
+              <label for="sistema">Sistema do seu Celular *</label>
+              <select id="sistema" name="sistema" class="form-control" required>
+                <option value="">Selecione...</option>
+                <option value="Android">Android (Samsung, Motorola, Xiaomi, etc.)</option>
+                <option value="iOS">iPhone (iOS)</option>
+                <option value="Ambos">Utilizo ambos (Android e iOS)</option>
               </select>
-            </div>
-            <div class="form-group">
-              <label for="mensagem">Observações (Modelo do carro, horário de preferência)</label>
-              <textarea id="mensagem" name="mensagem" rows="3" class="form-control" placeholder="Ex.: Corolla Prata - gostaria de agendar lavagem completa e polimento..."></textarea>
             </div>
             <label class="consent-check">
               <input type="checkbox" required />
-              <span>Concordo com o tratamento dos meus dados apenas para retorno do atendimento, conforme a <a href="privacidade.html" style="color:var(--accent);text-decoration:underline;">Política de Privacidade</a>.</span>
+              <span>Concordo com o tratamento dos meus dados para envio do e-book e contato de suporte, conforme a <a href="privacidade.html" style="color:var(--accent);text-decoration:underline;">Política de Privacidade</a> e os <a href="termos.html" style="color:var(--accent);text-decoration:underline;">Termos de Uso</a>.</span>
             </label>
-            <button type="submit" class="btn" style="width:100%;">Enviar Solicitação</button>
+            <button type="submit" class="btn" style="width:100%;">Solicitar Acesso ao E-book</button>
             <p id="form-feedback" style="display:none;margin-top:12px;color:var(--success);font-size:13.5px;font-weight:600;text-align:center;">
-              Solicitação registrada com sucesso! Entraremos em contato pelo telefone informado ou via e-mail (duchaprimeoficial@gmail.com).
+              Pedido registrado com sucesso! Enviamos as instruções de acesso ao e-book para o seu e-mail. Em caso de dúvidas, contate estrelaesrelinha55@gmail.com.
             </p>
           </form>
         </div>
@@ -730,18 +730,16 @@
     </div>
   </section>
 
-  <!-- Rodapé Institucional -->
   <footer>
     <div class="container">
       <div class="footer-grid">
         <div>
-          <div class="footer-title">68.414.896 Anisclei Cintra (Ducha Prime)</div>
+          <div class="footer-title">68.413.071 Gabriel de Souza Duarte</div>
           <p style="margin-bottom:10px;">
-            Empresa especializada em serviços de lavagem, lubrificação e polimento de veículos automotores em Goiânia - GO.
+            Publicação de conteúdos educativos digitais e guias práticos sobre tecnologia móvel, conectividade e uso consciente de smartphones.
           </p>
           <p>
-            <strong>CNPJ:</strong> 68.414.896/0001-99<br />
-            <strong>CNAE Principal:</strong> 45.20-0-05
+            <strong>CNPJ:</strong> 68.413.071/0001-50
           </p>
         </div>
 
@@ -749,9 +747,9 @@
           <div class="footer-title">Links Institucionais</div>
           <ul class="footer-links">
             <li><a href="index.html">Página Inicial</a></li>
-            <li><a href="#servicos">Nossos Serviços</a></li>
+            <li><a href="#conteudo">Conteúdo do E-book</a></li>
             <li><a href="#dados-empresa">Dados Cadastrais do CNPJ</a></li>
-            <li><a href="contato.html">Localização e Contato</a></li>
+            <li><a href="contato.html">Atendimento e Contato</a></li>
             <li><a href="privacidade.html">Política de Privacidade (LGPD)</a></li>
             <li><a href="termos.html">Termos e Condições de Uso</a></li>
           </ul>
@@ -760,32 +758,30 @@
         <div>
           <div class="footer-title">Endereço e Atendimento</div>
           <p style="margin-bottom:8px;">
-            Avenida Ravena, S/N, Quadra 01 Lote 24/25<br />
-            Bairro Residencial Porto Seguro — CEP: 74366-200<br />
-            Goiânia - Goiás (GO)
+            Rua Marumbi, 44, Cidade de Deus<br />
+            CEP: 69099-299 — Manaus - AM
           </p>
           <p>
-            <strong>Tel / WhatsApp:</strong> (62) 99133-6320<br />
-            <strong>E-mail:</strong> duchaprimeoficial@gmail.com
+            <strong>Telefone:</strong> (66) 5667-8997<br />
+            <strong>E-mail:</strong> estrelaesrelinha55@gmail.com
           </p>
         </div>
       </div>
 
       <div class="footer-bottom">
         <p>
-          <strong>Aviso de Independência Comercial:</strong> A empresa 68.414.896 Anisclei Cintra (Ducha Prime) atua como prestadora independente de serviços de estética, lavagem, lubrificação e polimento automotivo. Eventuais menções a marcas ou modelos de veículos têm finalidade estritamente descritiva de compatibilidade de serviço.
+          <strong>Aviso de Independência Editorial:</strong> O e-book "Guia Conectado 5G" é uma publicação educativa independente de autoria de 68.413.071 Gabriel de Souza Duarte, não possuindo vínculo societário ou representação oficial de operadoras de telefonia móvel ou fabricantes de aparelhos celulares.
         </p>
         <p>
-          &copy; 2026 68.414.896 Anisclei Cintra — CNPJ 68.414.896/0001-99. Todos os direitos reservados.
+          &copy; 2026 68.413.071 Gabriel de Souza Duarte — CNPJ 68.413.071/0001-50. Todos os direitos reservados.
         </p>
       </div>
     </div>
   </footer>
 
-  <!-- Banner LGPD -->
   <div id="cookie-banner" role="dialog" aria-label="Aviso de Privacidade e Cookies">
     <p>
-      Utilizamos cookies estritamente necessários para o funcionamento seguro deste site institucional, em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018). Consulte nossa <a href="privacidade.html">Política de Privacidade</a> e <a href="termos.html">Termos de Uso</a>.
+      Utilizamos cookies estritamente necessários para o funcionamento seguro deste site, em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018). Consulte nossa <a href="privacidade.html">Política de Privacidade</a> e <a href="termos.html">Termos de Uso</a>.
     </p>
     <div style="display:flex;gap:10px;">
       <button type="button" class="btn" onclick="acceptCookies()">Concordar e Fechar</button>
@@ -800,11 +796,11 @@
       e.target.reset();
     }
     function acceptCookies() {
-      localStorage.setItem('lgpd_consent_68414896000199', 'accepted');
+      localStorage.setItem('lgpd_consent_68413071000150', 'accepted');
       document.getElementById('cookie-banner').style.display = 'none';
     }
     (function() {
-      if (!localStorage.getItem('lgpd_consent_68414896000199')) {
+      if (!localStorage.getItem('lgpd_consent_68413071000150')) {
         document.getElementById('cookie-banner').style.display = 'flex';
       }
     })();
