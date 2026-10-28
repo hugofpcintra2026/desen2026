@@ -5,7 +5,19 @@
   function captureUtms() {
     try {
       var params = new URLSearchParams(window.location.search);
-      var keys = ['utm_source', 'utm_campaign', 'utm_medium', 'utm_content', 'utm_term', 'src', 'sck'];
+      var keys = [
+        'utm_source',
+        'utm_campaign',
+        'utm_medium',
+        'utm_content',
+        'utm_term',
+        'utm_id',
+        'src',
+        'sck',
+        'gclid',
+        'wbraid',
+        'gbraid'
+      ];
       var current = {};
       try {
         current = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') || {};
@@ -20,6 +32,12 @@
           current[k] = v;
           updated = true;
         }
+      }
+      // Se o Google Ads enviou gclid/wbraid/gbraid e sck não veio preenchido, mapeia para sck/src para a Utmify atribuir a conversão
+      var clickId = current.gclid || current.wbraid || current.gbraid;
+      if (clickId) {
+        if (!current.sck) current.sck = clickId;
+        if (!current.src) current.src = clickId;
       }
       if (updated || !localStorage.getItem(STORAGE_KEY)) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(current));
