@@ -30,6 +30,21 @@
   to = "/.netlify/functions/upload-comprovante"
   status = 200
 
+[[redirects]]
+  from = "/api/utmify"
+  to = "/.netlify/functions/utmify"
+  status = 200
+
+[[redirects]]
+  from = "/api/webhook/xpay"
+  to = "/.netlify/functions/webhook"
+  status = 200
+
+[[redirects]]
+  from = "/api/webhook"
+  to = "/.netlify/functions/webhook"
+  status = 200
+
 [[headers]]
   for = "/73653734543345/sobre"
   [headers.values]

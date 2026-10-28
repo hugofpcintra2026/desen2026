@@ -6,6 +6,18 @@
       "destination": "https://api.xpaybrasil.com/v1/:path*"
     },
     {
+      "source": "/api/utmify",
+      "destination": "/api/utmify.js"
+    },
+    {
+      "source": "/api/webhook/xpay",
+      "destination": "/api/webhook/xpay.js"
+    },
+    {
+      "source": "/api/webhook",
+      "destination": "/api/webhook/xpay.js"
+    },
+    {
       "source": "/api/status/:id",
       "destination": "/api/status/[id]?id=:id"
     },

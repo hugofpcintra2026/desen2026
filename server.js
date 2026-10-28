@@ -119,22 +119,32 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
-    // 5. POST /api/webhook (receber notificações XPay Brasil)
-    if (pathname === '/api/webhook' && req.method === 'POST') {
-        const body = await readJsonBody(req);
-        const event = body.event || body.type || '';
-        const charge = body.data || body.charge || body;
-        const chargeId = charge?.id || charge?.chargeId;
-        if (
-            event === 'charge.paid' ||
-            event === 'charge.received' ||
-            String(charge?.paymentStatus || '').toUpperCase() === 'PAID' ||
-            String(charge?.paymentStatus || '').toUpperCase() === 'RECIEVED' ||
-            String(charge?.status || '').toUpperCase() === 'COMPLETED'
-        ) {
-            markChargePaid(chargeId, body);
-        }
-        return sendJson(res, 200, { received: true });
+    // 5. POST /api/utmify (notificar Utmify)
+    if (pathname === '/api/utmify') {
+        const utmifyHandler = require('./api/utmify');
+        req.body = await readJsonBody(req);
+        res.status = (code) => {
+            res.statusCode = code;
+            return {
+                json: (obj) => sendJson(res, code, obj),
+                end: () => res.end()
+            };
+        };
+        return utmifyHandler(req, res);
+    }
+
+    // 6. POST /api/webhook ou /api/webhook/xpay (receber notificações XPay Brasil + Utmify)
+    if (pathname === '/api/webhook' || pathname === '/api/webhook/xpay') {
+        const webhookHandler = require('./api/webhook/xpay');
+        req.body = await readJsonBody(req);
+        res.status = (code) => {
+            res.statusCode = code;
+            return {
+                json: (obj) => sendJson(res, code, obj),
+                end: () => res.end()
+            };
+        };
+        return webhookHandler(req, res);
     }
 
     // Arquivos estáticos

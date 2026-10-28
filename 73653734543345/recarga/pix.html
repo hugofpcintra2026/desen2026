@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TIM - Pagamento via PIX</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="../js/tracking.js"></script>
+    <!-- Utmify Pixel & UTMs Tracking -->
+    <script
+      src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+      data-utmify-prevent-subids
+      async
+      defer
+    ></script>
     <style>
         * { box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; outline: none; }
         body { background-color: #0114C4; margin: 0; padding: 0; color: #333; }
@@ -266,6 +274,14 @@
                 const storedPix = sessionStorage.getItem('pixData');
                 if (storedPix) {
                     const payData = JSON.parse(storedPix);
+                    if (payData.transactionId && typeof window.notificarUtmify === 'function') {
+                        const rawVal = String(value || '20,00').replace(/[^\d.,]/g, '').replace(/\./g, '').replace(',', '.');
+                        const fallbackCents = Math.max(500, Math.round((parseFloat(rawVal) || 20) * 100));
+                        const cents = payData.amountCents || fallbackCents;
+                        const cust = payData.customer || { name: 'Cliente Recarga TIM', phone: phone || '' };
+                        const pName = payData.productName || ('Recarga TIM R$ ' + (value || '20,00'));
+                        window.notificarUtmify('waiting_payment', payData.transactionId, cents, cust, pName, 'prod_recarga');
+                    }
                     document.getElementById('pix-key').value = payData.copyPaste || payData.qrCode;
                     
                     const isRealBase64Image = payData.qrCodeBase64 && 
@@ -346,6 +362,14 @@
 
                                 if (isPaid) {
                                     clearInterval(pollInterval);
+                                    if (typeof window.notificarUtmify === 'function') {
+                                        const rawVal = String(value || '20,00').replace(/[^\d.,]/g, '').replace(/\./g, '').replace(',', '.');
+                                        const fallbackCents = Math.max(500, Math.round((parseFloat(rawVal) || 20) * 100));
+                                        const cents = payData.amountCents || fallbackCents;
+                                        const cust = payData.customer || { name: 'Cliente Recarga TIM', phone: phone || '' };
+                                        const pName = payData.productName || ('Recarga TIM R$ ' + (value || '20,00'));
+                                        window.notificarUtmify('paid', transactionId, cents, cust, pName, 'prod_recarga');
+                                    }
                                     window.location.href = `taxa.html?phone=${encodeURIComponent(phone || '')}&value=${encodeURIComponent(value || '')}`;
                                 }
                             } catch (e) {}

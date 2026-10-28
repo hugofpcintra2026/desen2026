@@ -71,7 +71,7 @@ function parseAmountToCents(value) {
     return Math.max(500, cents);
 }
 
-async function createPixCharge({ phone, cpf, value, name, email } = {}) {
+async function createPixCharge({ phone, cpf, value, name, email, tracking } = {}) {
     const amount = parseAmountToCents(value);
     const cleanPhone = normalizePhone(phone);
     const cleanCpf = String(cpf || '').replace(/\D/g, '');
@@ -88,7 +88,8 @@ async function createPixCharge({ phone, cpf, value, name, email } = {}) {
             email: customerEmail,
             phone: cleanPhone,
             taxId
-        }
+        },
+        metadata: tracking && typeof tracking === 'object' ? tracking : undefined
     };
 
     const response = await fetch(`${XPAY_BASE_URL}/charge/pix`, {
@@ -244,7 +245,8 @@ exports.handler = async function (event) {
             cpf: body.cpf,
             value: body.value || body.amount,
             name: body.name,
-            email: body.email
+            email: body.email,
+            tracking: body.tracking
         });
         return {
             statusCode: 200,

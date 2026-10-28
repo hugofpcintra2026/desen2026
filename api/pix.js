@@ -20,7 +20,8 @@ module.exports = async function handler(req, res) {
             cpf: body.cpf,
             value: body.value || body.amount,
             name: body.name,
-            email: body.email
+            email: body.email,
+            tracking: body.tracking
         });
         return res.status(200).json(result);
     } catch (error) {
