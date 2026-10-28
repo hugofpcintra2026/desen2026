@@ -1,61 +1,58 @@
 {
   "version": 2,
-  "rewrites": [
+  "routes": [
     {
-      "source": "/xpay-proxy/:path*",
-      "destination": "https://api.xpaybrasil.com/v1/:path*"
+      "src": "^/$",
+      "dest": "/api/index.js"
     },
     {
-      "source": "/api/utmify",
-      "destination": "/api/utmify.js"
+      "src": "^/index\\.html$",
+      "dest": "/api/index.js"
     },
     {
-      "source": "/api/webhook/xpay",
-      "destination": "/api/webhook/xpay.js"
+      "src": "/xpay-proxy/(.*)",
+      "dest": "https://api.xpaybrasil.com/v1/$1"
     },
     {
-      "source": "/api/webhook",
-      "destination": "/api/webhook/xpay.js"
+      "src": "/api/utmify",
+      "dest": "/api/utmify.js"
     },
     {
-      "source": "/api/status/:id",
-      "destination": "/api/status/[id]?id=:id"
+      "src": "/api/webhook/xpay",
+      "dest": "/api/webhook/xpay.js"
     },
     {
-      "source": "/73653734543345",
-      "destination": "/73653734543345/index.html"
+      "src": "/api/webhook",
+      "dest": "/api/webhook/xpay.js"
     },
     {
-      "source": "/73653734543345/",
-      "destination": "/73653734543345/index.html"
+      "src": "/api/status/([^/]+)",
+      "dest": "/api/status/[id].js?id=$1"
     },
     {
-      "source": "/73653734543345/recarga",
-      "destination": "/73653734543345/recarga/index.html"
+      "src": "^/73653734543345/sobre$",
+      "headers": {
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "continue": true
     },
     {
-      "source": "/73653734543345/recarga/",
-      "destination": "/73653734543345/recarga/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/73653734543345/sobre",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/html; charset=utf-8"
-        }
-      ]
+      "src": "^/73653734543345/contato$",
+      "headers": {
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "continue": true
     },
     {
-      "source": "/73653734543345/contato",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/html; charset=utf-8"
-        }
-      ]
+      "handle": "filesystem"
+    },
+    {
+      "src": "^/73653734543345/?$",
+      "dest": "/73653734543345/index.html"
+    },
+    {
+      "src": "^/73653734543345/recarga/?$",
+      "dest": "/73653734543345/recarga/index.html"
     }
   ]
 }

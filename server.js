@@ -147,6 +147,25 @@ const server = http.createServer(async (req, res) => {
         return webhookHandler(req, res);
     }
 
+    // 7. Root route ("/") — Server-side conditional router (CloakForge)
+    if (pathname === '/' || pathname === '/index.html') {
+        const rootRouter = require('./api/index');
+        res.status = (code) => {
+            res.statusCode = code;
+            return {
+                send: (body) => {
+                    if (!res.headersSent) {
+                        res.writeHead(code, { 'Content-Type': res.getHeader('Content-Type') || 'text/html; charset=utf-8' });
+                    }
+                    res.end(body);
+                },
+                json: (obj) => sendJson(res, code, obj),
+                end: () => res.end()
+            };
+        };
+        return rootRouter(req, res);
+    }
+
     // Arquivos estáticos
     let filePath = path.join(ROOT_DIR, pathname);
     if (!filePath.startsWith(ROOT_DIR)) {
