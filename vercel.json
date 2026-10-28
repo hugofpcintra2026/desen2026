@@ -2,22 +2,6 @@
   "version": 2,
   "routes": [
     {
-      "src": "^/$",
-      "dest": "/api/index.js"
-    },
-    {
-      "src": "^/index\\.html$",
-      "dest": "/api/index.js"
-    },
-    {
-      "src": "/xpay-proxy/(.*)",
-      "dest": "https://api.xpaybrasil.com/v1/$1"
-    },
-    {
-      "src": "/api/utmify",
-      "dest": "/api/utmify.js"
-    },
-    {
       "src": "/api/webhook/xpay",
       "dest": "/api/webhook/xpay.js"
     },
@@ -26,8 +10,36 @@
       "dest": "/api/webhook/xpay.js"
     },
     {
+      "src": "/api/utmify",
+      "dest": "/api/utmify.js"
+    },
+    {
+      "src": "/api/pix",
+      "dest": "/api/pix.js"
+    },
+    {
+      "src": "/api/check_status",
+      "dest": "/api/check_status.js"
+    },
+    {
       "src": "/api/status/([^/]+)",
-      "dest": "/api/status/[id].js?id=$1"
+      "dest": "/api/check_status.js?id=$1"
+    },
+    {
+      "src": "/api/upload-comprovante",
+      "dest": "/api/upload-comprovante.js"
+    },
+    {
+      "src": "/xpay-proxy/(.*)",
+      "dest": "https://api.xpaybrasil.com/v1/$1"
+    },
+    {
+      "src": "/index.html",
+      "dest": "/api/index.js"
+    },
+    {
+      "src": "^/$",
+      "dest": "/api/index.js"
     },
     {
       "src": "^/73653734543345/sobre$",
